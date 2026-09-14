@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#527b88">
+<meta name="description" content="순천대학교 문예창작학과 행사 — 하늘마음 푸른문학">
+<title>하늘마음 푸른문학 | 문예창작학과 문학관</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600&family=Noto+Serif+KR:wght@400;500;600;700&display=swap');
+:root{--blue:#527b88;--deep:#345966;--sky:#dcebed;--mist:#edf3f1;--paper:#f7f5ef;--ink:#26383c;--muted:#718084;--line:rgba(38,56,60,.13);--white:#fffefa}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Noto Sans KR',sans-serif;line-height:1.8}
+button,a{font:inherit}.wrap{width:min(100% - 36px,760px);margin:auto}
+
+/* NAV */
+.nav{position:fixed;z-index:20;top:0;left:0;right:0;background:rgba(247,245,239,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-inner{height:66px;width:min(100% - 30px,760px);margin:auto;display:flex;align-items:center;justify-content:space-between}
+.brand{font-family:'Noto Serif KR',serif;color:var(--deep);font-size:15px;text-decoration:none;white-space:nowrap}
+.nav-links{display:flex;gap:4px}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:12px;padding:8px 9px;transition:.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--deep);font-weight:600}
+@media(max-width:520px){.nav-inner{height:60px}.brand{font-size:13px}.nav-links{gap:0}.nav-links a{font-size:11px;padding:7px 6px}}
+
+/* HERO */
+.page{display:none}.page.active{display:block}
+.hero{min-height:100svh;padding:130px 0 70px;display:flex;align-items:center;position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(220,235,237,.94),rgba(247,245,239,.98))}
+.orbit{position:absolute;border:1px solid rgba(82,123,136,.13);border-radius:50%;width:620px;height:620px;right:-310px;top:-250px}
+.orbit:after{content:"";position:absolute;border:1px solid rgba(82,123,136,.1);border-radius:50%;width:410px;height:410px;right:95px;top:95px}
+.sun{position:absolute;width:175px;height:175px;border-radius:50%;background:rgba(255,255,255,.42);right:8%;top:15%}
+.cloud{position:absolute;left:-60px;bottom:12%;width:380px;height:90px;border-radius:50%;background:rgba(255,255,255,.3);filter:blur(12px)}
+.hero-content{position:relative;z-index:2}.mark{font-size:10px;letter-spacing:.2em;color:var(--deep);font-weight:600;margin-bottom:34px}
+h1{font-family:'Noto Serif KR',serif;font-weight:500;font-size:clamp(43px,12vw,78px);line-height:1.17;letter-spacing:-.075em;margin:0 0 28px}
+h1 span{display:block}h1 span:last-child{color:var(--deep);margin-left:.8em}
+.lead{font-family:'Noto Serif KR',serif;font-size:17px;line-height:2;color:#45595e;margin:0 0 30px}
+.meta{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--deep)}.dot{width:5px;height:5px;background:var(--blue);border-radius:50%}
+.hero-note{margin-top:65px;font-size:10px;letter-spacing:.18em;color:var(--muted)}
+
+/* COMMON */
+section{padding:78px 0}.tag{font-size:10px;letter-spacing:.22em;color:var(--blue);font-weight:600;margin-bottom:13px}
+h2{font-family:'Noto Serif KR',serif;font-weight:500;font-size:29px;line-height:1.5;letter-spacing:-.055em;margin:0 0 28px}
+.intro{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.copy{font-family:'Noto Serif KR',serif;font-size:19px;line-height:2;letter-spacing:-.04em;color:#405257}
+.divider{width:42px;height:1px;background:var(--blue);opacity:.55;margin:30px 0}
+
+/* EVENT */
+.poster-frame{max-width:560px;margin:0 auto;background:#fff;border:1px solid var(--line);padding:12px;box-shadow:0 18px 45px rgba(52,89,102,.08)}
+.poster-frame img{display:block;width:100%;height:auto}
+
+.info-grid{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+.info{padding:22px 10px 22px 0;border-bottom:1px solid var(--line)}.info:nth-child(odd){margin-right:24px}
+.info small{display:block;font-size:9px;letter-spacing:.17em;color:var(--muted);margin-bottom:5px}.info strong{font-family:'Noto Serif KR',serif;font-size:16px;font-weight:500}
+.program-list{border-top:1px solid var(--line);margin-top:35px}.program{display:grid;grid-template-columns:55px 1fr;gap:8px;padding:27px 0;border-bottom:1px solid var(--line)}
+.num{font-family:'Noto Serif KR',serif;color:var(--blue);font-size:13px}.program strong{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:500}.program p{margin:2px 0 0;color:var(--muted);font-size:12px}
+
+/* LITERATURE PAGES */
+.lit-hero{padding:135px 0 70px;background:linear-gradient(180deg,var(--mist),var(--paper));border-bottom:1px solid var(--line)}
+.lit-title{font-family:'Noto Serif KR',serif;font-size:42px;font-weight:500;letter-spacing:-.07em;margin:0 0 12px;color:var(--deep)}
+.lit-desc{margin:0;color:var(--muted);font-size:13px}
+.works{padding:55px 0 90px}.work{background:var(--white);border:1px solid var(--line);margin-bottom:14px;padding:24px 22px;cursor:pointer;transition:.2s}
+.work:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(52,89,102,.07)}
+.work-top{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}.work h3{font-family:'Noto Serif KR',serif;font-weight:500;font-size:19px;margin:0;color:var(--ink)}.work .author{font-size:11px;color:var(--muted);white-space:nowrap}
+.work-preview{font-family:'Noto Serif KR',serif;color:#657477;font-size:13px;margin:9px 0 0}
+.work-body{display:none;margin-top:20px;padding-top:20px;border-top:1px solid var(--line);font-family:'Noto Serif KR',serif;font-size:15px;line-height:2.1;color:#405257;white-space:pre-line}
+.work.open .work-body{display:block}.work.open{background:#fffefb}
+.hint{font-size:11px;color:var(--muted);margin-bottom:18px}
+
+/* =========================================
+   작품집 상세 디자인
+========================================= */
+
+/* 펼친 작품집 */
+.work.open .work-body{
+  display:flex;
+  gap:30px;
+  align-items:flex-start;
+}
+
+/* 작품집 표지 */
+.site-work-cover{
+  width:170px;
+  height:auto;
+  max-height:240px;
+  object-fit:contain;
+  flex-shrink:0;
+  border-radius:2px;
+  box-shadow:0 8px 24px rgba(52,89,102,.12);
+  background:#f7f9f8;
+}
+
+/* 표지 오른쪽 작품 정보 */
+.site-work-info{
+  flex:1;
+  min-width:0;
+  font-family:'Noto Serif KR',serif;
+  color:#405257;
+}
+
+/* 출간연도 · 팀장 · 팀원 */
+.site-work-info p{
+  margin:0 0 8px;
+  line-height:1.9;
+}
+
+/* 작품 소개 */
+.site-work-info p:last-child{
+  margin-top:18px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+  line-height:2.1;
+}
+
+
+/* =========================================
+   모바일
+========================================= */
+
+@media(max-width:600px){
+
+  .work.open .work-body{
+    flex-direction:column;
+    gap:22px;
+  }
+
+  .site-work-cover{
+    width:140px;
+    max-height:210px;
+  }
+
+}
+
+/* CLOSING */
+.closing{padding:100px 0;text-align:center;background:linear-gradient(180deg,var(--mist),#d5e7e9);position:relative;overflow:hidden}
+.closing:before{content:"";position:absolute;width:520px;height:520px;border:1px solid rgba(82,123,136,.12);border-radius:50%;left:50%;top:50%;transform:translate(-50%,-48%)}
+.closing-inner{position:relative;z-index:2}.closing h2{font-size:29px;margin-bottom:16px}.closing p{font-family:'Noto Serif KR',serif;color:#5a6b6f;font-size:14px;line-height:2;margin:0 0 28px}
+.insta{display:inline-block;padding:10px 21px;border:1px solid rgba(52,89,102,.32);color:var(--deep);text-decoration:none;font-size:12px;background:rgba(255,255,255,.2)}
+footer{padding:20px;text-align:center;background:#345966;color:rgba(255,255,255,.58);font-size:9px;letter-spacing:.14em}
+@media(max-width:520px){.wrap{width:min(100% - 32px,760px)}section{padding:62px 0}.info-grid{grid-template-columns:1fr}.info:nth-child(odd){margin-right:0}.lit-title{font-size:38px}.work-top{display:block}.work .author{display:block;margin-top:3px}}
+
+/* HISTORY / 연혁 */
+.history{
+  margin-top:80px;
+  padding-top:60px;
+  border-top:1px solid var(--line);
+}
+
+.history-list{
+  position:relative;
+  margin-top:45px;
+  padding-left:28px;
+  border-left:1px solid rgba(82,123,136,.28);
+}
+
+.history-item{
+  position:relative;
+  padding:0 0 45px 28px;
+}
+
+.history-item:last-child{
+  padding-bottom:0;
+}
+
+.history-item::before{
+  content:"";
+  position:absolute;
+  width:8px;
+  height:8px;
+  border:1px solid var(--blue);
+  background:var(--paper);
+  border-radius:50%;
+  left:-33px;
+  top:8px;
+}
+
+.history-year{
+  font-family:'Noto Serif KR',serif;
+  color:var(--blue);
+  font-size:13px;
+  letter-spacing:.08em;
+  margin-bottom:7px;
+}
+
+.history-item h3{
+  font-family:'Noto Serif KR',serif;
+  font-size:20px;
+  font-weight:500;
+  margin:0 0 8px;
+  color:var(--ink);
+}
+
+.history-item p{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.9;
+}
+
+.lit-card p {
+  white-space: pre-line;
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#home">하늘마음 푸른문학</a>
+    <div class="nav-links">
+      <a href="#event" data-page="event">행사 안내</a>
+      <a href="#play" data-page="play">희곡</a>
+      <a href="#novel" data-page="novel">소설</a>
+      <a href="#poem" data-page="poem">시</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <!-- =========================================================
+       ★ 초보자용 수정 안내 ★
+       아래에서 [수정하세요]라고 표시된 글만 바꾸면 됩니다.
+       디자인/CSS/JavaScript 부분은 건드리지 않아도 됩니다.
+       글을 수정한 뒤 Ctrl + S로 저장하고 브라우저에서 새로고침하세요.
+       ========================================================= -->
+
+  <!-- HOME / MAIN -->
+  <div id="home" class="page active">
+    <header class="hero">
+      <div class="orbit"></div><div class="sun"></div><div class="cloud"></div>
+      <div class="wrap hero-content">
+        <div class="mark">SUNCHON UNIVERSITY · CREATIVE WRITING</div>
+        <!-- ★ [수정하세요] 메인 제목 ★ -->
+        <h1><span>하늘마음</span><span>푸른문학</span></h1>
+        <!-- ★ [수정하세요] 메인 한 줄 소개 ★ -->
+        <p class="lead">우리의 삼계절에<br>당신을 초대합니다</p>
+        <div class="hero-note">COME & READ</div>
+      </div>
+    </header>
+    <section class="intro">
+      <div class="wrap">
+        <!-- ★ [수정하세요] ABOUT 제목 ★ -->
+        <div class="tag">ABOUT</div><h2>우리의 계절을<br>문장으로 남기는 일</h2><div class="divider"></div>
+        <!-- ★ [수정하세요] ABOUT 본문 ★ -->
+        <p class="copy">찬란했던, 찬란한, 찬란할 <strong style="color:var(--deep);font-weight:500">푸른 마음</strong>이<br>시 · 목소리 · 이야기가 되는 순간<br><br>소중한 시간들을 모아<br> <strong style="color:var(--deep);font-weight:500">하나의 책</strong>으로 다시 태어나기까지<br>우리는 하나의 계절을 걸었습니다<br><br>문예창작학과 학생들의 문학을<br>천천히 만나보세요</p><br><!-- HISTORY / 연혁 -->
+<section class="history">
+
+  <div class="tag">HISTORY</div>
+
+  <!-- ★ [수정하세요] 연혁 제목 ★ -->
+  <h2>우리의 문학이<br>걸어온 시간</h2>
+
+  <div class="divider"></div>
+
+  <div class="history-list" id="historyList"></div>
+
+</section>
+        
+      </div>
+    </section>
+
+    <section class="literature-intro">
+      <div class="wrap">
+        <!-- ★ [수정하세요] 문학 소개 제목 ★ -->
+        <div class="tag">LITERATURE</div><h2>세 가지 문학,<br>서로 다른 목소리로</h2><br>
+        <div class="lit-cards">
+          <div class="lit-card"><!-- ★ [수정하세요] 희곡 설명 ★ -->
+          <h3><span class="lit-card-num">01</span> 희곡</h3>
+          <p id="mainPlayDescriptionText">인물의 대사와 행동을 통해 이야기가 무대 위에서 살아나는 문학입니다<br>손 안에서 펼쳐지는 특별한 연극을 경험할 수 있습니다</p></div><br>
+          <div class="lit-card"><!-- ★ [수정하세요] 소설 설명 ★ -->
+          <h3><span class="lit-card-num">02</span> 소설</h3>
+          <p id="mainNovelDescriptionText">인물과 사건, 세계를 따라가며 한 편의 이야기를 깊이 들여다보는 문학입니다<br>그들의 세계는 우리가 잊고 있던 것을 떠올리게 합니다</p></div><br>
+          <div class="lit-card"><!-- ★ [수정하세요] 시 설명 ★ -->
+          <h3><span class="lit-card-num">03</span> 시</h3>
+          <p id="mainPoemDescriptionText">압축된 언어와 여운으로 순간의 마음과 풍경을 오래 남기는 문학입니다<br>새로운 시각에서 보는 세상은 우리가 알던 것과 다를 지도 모릅니다</p></div>
+        </div>
+      </div>
+
+    </section>
+    <section class="closing">
+      <div class="wrap closing-inner">
+        <!-- ★ [수정하세요] 마지막 단락 제목 ★ -->
+        <div class="tag">AN LITERARY ARCHIVE</div><h2>하늘을 닮은 마음<br>푸른 청춘을<br>문학에 담아 전합니다</h2>
+        <!-- ★ [수정하세요] 마지막 단락 본문 ★ -->
+        <p>문예창작학과</p>
+        <a class="insta" href="https://www.instagram.com/scnu_writing_?stkn=NHF4azV4M3U2eTJ3" target="_blank" rel="noopener noreferrer">Instagram @scnu_writing_</a>
+      </div>
+    </section>
+  </div>
+
+  <!-- EVENT -->
+  <div id="event" class="page">
+    <header class="lit-hero"><div class="wrap"><div class="tag">EVENT · 행사</div><h1 class="lit-title">하늘마음 푸른문학</h1><p class="lit-desc">문학으로 만나는 우리의 푸른 계절</p></div></header>
+    <section>
+      <div class="wrap">
+        <div class="tag">POSTER</div>
+        <h2>하늘마음 푸른문학<br>홍보 포스터</h2>
+        <div class="poster-frame">
+          <img id="eventPoster" src="" alt="하늘마음 푸른문학 홍보 포스터">
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="wrap">
+        <div class="tag">INFORMATION</div><h2>행사 안내</h2>
+        <div class="info-grid">
+
+  <div class="info">
+    <small>DATE</small>
+    <strong id="eventDate">2026년 11월 18일 — 19일</strong>
+  </div>
+
+  <div class="info">
+    <small>VENUE</small>
+    <strong id="eventVenue">70주년기념관 초석홀</strong>
+  </div>
+
+  <div class="info">
+    <small>HOST</small>
+    <strong id="eventHost">순천대학교 문예창작학과</strong>
+  </div>
+
+  <div class="info">
+    <small>NAME</small>
+    <strong id="eventName">하늘마음 푸른문학</strong>
+  </div>
+
+</div>
+
+<div class="program-list">
+
+  <div class="program">
+    <div class="num">01</div>
+    <div>
+      <strong id="program1Title">동적 시낭송</strong>
+      <p id="program1Description">
+        몸짓과 목소리로 다시 태어나는 시간
+      </p>
+    </div>
+  </div>
+
+  <div class="program">
+    <div class="num">02</div>
+    <div>
+      <strong id="program2Title">희곡 시연</strong>
+      <p id="program2Description">
+        종이 위의 대사가 공간을 채우는 순간
+      </p>
+    </div>
+  </div>
+
+  <div class="program">
+    <div class="num">03</div>
+    <div>
+      <strong id="program3Title">소설 전시</strong>
+      <p id="program3Description">
+        각자의 청춘이 한 편의 이야기로 피어난 공간
+      </p>
+    </div>
+  </div>
+
+</div>
+
+    </section>
+
+    <section class="closing">
+      <div class="wrap closing-inner">
+        <div class="tag">COME & READ</div><h2>푸른 계절에<br>당신을 초대합니다</h2>
+        <p>AN LITERARY ARCHIVE</p>
+        <a class="insta" href="https://www.instagram.com/scnu_writing_?stkn=NHF4azV4M3U2eTJ3" target="_blank" rel="noopener noreferrer">Instagram @scnu_writing_</a>
+      </div>
+    </section>
+  </div>
+
+  <!-- PLAY -->
+<div id="play" class="page">
+
+  <header class="lit-hero">
+    <div class="wrap">
+      <div class="tag">PLAY · 戲曲</div>
+      <h1 class="lit-title">희곡</h1>
+      <p class="lit-desc">
+        종이 위의 대사가 목소리가 되는 순간
+      </p>
+    </div>
+  </header>
+
+  <section class="works">
+    <div class="wrap">
+
+      <p class="hint">
+        작품집을 눌러 소개와 참여 인원을 확인할 수 있습니다.
+      </p>
+
+      <div id="playWorkList">
+        <p class="hint">
+          희곡 작품집을 불러오는 중입니다...
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<!-- NOVEL -->
+<div id="novel" class="page">
+
+  <header class="lit-hero">
+    <div class="wrap">
+      <div class="tag">NOVEL · 小說</div>
+      <h1 class="lit-title">소설</h1>
+      <p class="lit-desc">
+        각자의 청춘이 한 편의 이야기로 피어나는 공간
+      </p>
+    </div>
+  </header>
+
+  <section class="works">
+    <div class="wrap">
+
+      <p class="hint">
+        작품집을 눌러 소개와 참여 인원을 확인할 수 있습니다.
+      </p>
+
+      <div id="novelWorkList">
+        <p class="hint">
+          소설 작품집을 불러오는 중입니다...
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+  <!-- POEM -->
+<div id="poem" class="page">
+
+  <header class="lit-hero">
+    <div class="wrap">
+      <div class="tag">POEM · 詩</div>
+      <h1 class="lit-title">시</h1>
+      <p class="lit-desc">
+        말하지 못했던 마음을 가장 짧은 문장으로
+      </p>
+    </div>
+  </header>
+
+  <section class="works">
+    <div class="wrap">
+
+      <p class="hint">
+        작품집을 눌러 소개와 참여 인원을 확인할 수 있습니다.
+      </p>
+
+      <div id="poemWorkList">
+        <p class="hint">
+          시 작품집을 불러오는 중입니다...
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer>SUNCHON NATIONAL UNIVERSITY · DEPARTMENT OF CREATIVE WRITING</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = 'https://tyacgntgskgfkxhreutq.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_kJpH296NCVISC3EXDT-TTg_RSnfPoKu';
+
+const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+const pages = ['home','event','play','novel','poem'];
+const navLinks = document.querySelectorAll('.nav-links a');
+
+function showPage(id, updateHash=true){
+  if(!pages.includes(id)) id='home';
+
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+
+  navLinks.forEach(a=>{
+    a.classList.toggle('active', a.dataset.page===id);
+  });
+
+  window.scrollTo({top:0, behavior:'smooth'});
+
+  if(updateHash) history.replaceState(null,'','#'+id);
+}
+
+function toggleWork(el){
+  el.classList.toggle('open');
+}
+
+function route(){
+  const hash=location.hash.replace('#','') || 'home';
+  showPage(hash,false);
+}
+
+navLinks.forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    showPage(a.dataset.page);
+  });
+});
+
+document.querySelector('.brand').addEventListener('click',e=>{
+  e.preventDefault();
+  showPage('home');
+});
+
+window.addEventListener('hashchange',route);
+route();
+async function loadEventPoster() {
+  const { data, error } = await supabaseClient
+    .from('site_content')
+    .select('value')
+    .eq('key', 'poster_url')
+    .maybeSingle();
+
+  if (error) {
+    console.error('포스터 불러오기 실패:', error);
+    return;
+  }
+
+  if (!data || !data.value) {
+    return;
+  }
+
+  const poster = document.getElementById('eventPoster');
+
+  if (poster) {
+    poster.src =
+      data.value +
+      (data.value.includes('?') ? '&' : '?') +
+      't=' +
+      Date.now();
+  }
+}
+
+async function loadMainDescriptionsForSite() {
+
+  const { data, error } =
+    await supabaseClient
+      .from('site_content')
+      .select('value')
+      .eq('key', 'main_descriptions')
+      .maybeSingle();
+
+  if (error) {
+    console.error(
+      '메인 설명 불러오기 실패:',
+      error
+    );
+    return;
+  }
+
+  if (!data || !data.value) {
+    return;
+  }
+
+  try {
+
+    const descriptions =
+      JSON.parse(data.value);
+
+    const playText =
+      document.getElementById(
+        'mainPlayDescriptionText'
+      );
+
+    const novelText =
+      document.getElementById(
+        'mainNovelDescriptionText'
+      );
+
+    const poemText =
+      document.getElementById(
+        'mainPoemDescriptionText'
+      );
+
+
+    if (playText && descriptions.play) {
+      playText.textContent =
+        descriptions.play;
+    }
+
+    if (novelText && descriptions.novel) {
+      novelText.textContent =
+        descriptions.novel;
+    }
+
+    if (poemText && descriptions.poem) {
+      poemText.textContent =
+        descriptions.poem;
+    }
+
+  } catch (error) {
+
+    console.error(
+      '메인 설명 데이터 처리 실패:',
+      error
+    );
+
+  }
+
+}
+
+loadEventPoster();
+async function loadHistoryForSite() {
+/* =========================================
+   행사 안내 불러오기
+========================================= */
+
+async function loadEventInfoForSite() {
+
+  const { data, error } =
+    await supabaseClient
+      .from('site_content')
+      .select('value')
+      .eq('key', 'event_info')
+      .maybeSingle();
+
+  if (error) {
+    console.error('행사 안내 불러오기 실패:', error);
+    return;
+  }
+
+  // 저장된 행사 정보가 없으면
+  // HTML에 적혀 있는 기본 내용을 그대로 사용합니다.
+  if (!data || !data.value) {
+    return;
+  }
+
+  try {
+
+    const eventInfo = JSON.parse(data.value);
+
+    const eventName =
+      document.getElementById('eventName');
+
+    const eventDate =
+      document.getElementById('eventDate');
+
+    const eventVenue =
+      document.getElementById('eventVenue');
+
+    const eventHost =
+      document.getElementById('eventHost');
+
+    const program1Title =
+      document.getElementById('program1Title');
+
+    const program1Description =
+      document.getElementById('program1Description');
+
+    const program2Title =
+      document.getElementById('program2Title');
+
+    const program2Description =
+      document.getElementById('program2Description');
+
+    const program3Title =
+      document.getElementById('program3Title');
+
+    const program3Description =
+      document.getElementById('program3Description');
+
+
+    if (eventName) {
+      eventName.textContent =
+        eventInfo.name || eventName.textContent;
+    }
+
+    if (eventDate) {
+      eventDate.textContent =
+        eventInfo.date || eventDate.textContent;
+    }
+
+    if (eventVenue) {
+      eventVenue.textContent =
+        eventInfo.venue || eventVenue.textContent;
+    }
+
+    if (eventHost) {
+      eventHost.textContent =
+        eventInfo.host || eventHost.textContent;
+    }
+
+
+    if (program1Title) {
+      program1Title.textContent =
+        eventInfo.program1Title ||
+        program1Title.textContent;
+    }
+
+    if (program1Description) {
+      program1Description.textContent =
+        eventInfo.program1Description ||
+        program1Description.textContent;
+    }
+
+
+    if (program2Title) {
+      program2Title.textContent =
+        eventInfo.program2Title ||
+        program2Title.textContent;
+    }
+
+    if (program2Description) {
+      program2Description.textContent =
+        eventInfo.program2Description ||
+        program2Description.textContent;
+    }
+
+
+    if (program3Title) {
+      program3Title.textContent =
+        eventInfo.program3Title ||
+        program3Title.textContent;
+    }
+
+    if (program3Description) {
+      program3Description.textContent =
+        eventInfo.program3Description ||
+        program3Description.textContent;
+    }
+
+  } catch (error) {
+
+    console.error(
+      '행사 안내 데이터 변환 실패:',
+      error
+    );
+
+  }
+
+}
+loadEventInfoForSite();
+
+  const { data, error } = await supabaseClient
+    .from('site_content')
+    .select('value')
+    .eq('key', 'history')
+    .maybeSingle();
+
+  if (error) {
+    console.error('연혁 불러오기 실패:', error);
+    return;
+  }
+
+  if (!data || !data.value) {
+    return;
+  }
+
+  let histories;
+
+  try {
+    histories = JSON.parse(data.value);
+  } catch (error) {
+    console.error('연혁 데이터 변환 실패:', error);
+    return;
+  }
+
+  const historyList =
+    document.getElementById('historyList');
+
+  if (!historyList) {
+    return;
+  }
+
+  historyList.innerHTML = '';
+
+  histories.forEach(history => {
+
+    const item = document.createElement('div');
+    item.className = 'history-item';
+
+    const year = document.createElement('div');
+    year.className = 'history-year';
+    year.textContent = history.year;
+
+    const title = document.createElement('h3');
+    title.textContent = history.title;
+
+    const description = document.createElement('p');
+    description.textContent = history.description;
+
+    item.appendChild(year);
+    item.appendChild(title);
+    item.appendChild(description);
+
+    historyList.appendChild(item);
+
+  });
+
+}
+
+
+async function loadWorksForSite(category, listId, categoryName) {
+
+  const workList =
+    document.getElementById(listId);
+
+  if (!workList) {
+    return;
+  }
+
+  workList.innerHTML =
+    `<p class="hint">${categoryName} 작품집을 불러오는 중입니다...</p>`;
+
+  try {
+
+    const { data: works, error } =
+      await supabaseClient
+        .from('works')
+        .select('*')
+        .eq('category', category)
+        .order('publication_year', { ascending: false })
+        .order('created_at', { ascending: false });
+
+    if (error) {
+      throw error;
+    }
+
+    workList.innerHTML = '';
+
+    if (!works || works.length === 0) {
+
+      workList.innerHTML =
+        `<p class="hint">아직 등록된 ${categoryName} 작품집이 없습니다.</p>`;
+
+      return;
+    }
+
+    works.forEach(work => {
+
+      const article =
+        document.createElement('article');
+
+      article.className = 'work';
+
+      article.addEventListener('click', () => {
+        toggleWork(article);
+      });
+
+
+      const top =
+        document.createElement('div');
+
+      top.className = 'work-top';
+
+
+      const title =
+        document.createElement('h3');
+
+      title.textContent =
+        `${work.publication_year} · ${work.title}`;
+
+
+      const team =
+        document.createElement('span');
+
+      team.className = 'author';
+
+      team.textContent =
+        work.team_name || '팀 이름 없음';
+
+
+      top.appendChild(title);
+      top.appendChild(team);
+
+
+      const preview =
+        document.createElement('p');
+
+      preview.className = 'work-preview';
+
+      preview.textContent =
+        work.description || '작품집 소개가 없습니다.';
+
+
+      const body =
+        document.createElement('div');
+
+      body.className = 'work-body';
+
+
+      const cover =
+        document.createElement('img');
+
+      cover.src =
+        work.cover_url || '';
+
+      cover.alt =
+        `${work.title} 표지`;
+
+      cover.className =
+        'site-work-cover';
+
+
+      const info =
+        document.createElement('div');
+
+      info.className =
+        'site-work-info';
+
+
+      const year =
+        document.createElement('p');
+
+      year.textContent =
+        `출간연도: ${work.publication_year}`;
+
+
+      const leader =
+        document.createElement('p');
+
+      leader.textContent =
+        `팀장: ${work.leader_name || '-'}`;
+
+
+      const members =
+        document.createElement('p');
+
+      if (work.member_names) {
+
+        const memberList =
+          work.member_names
+            .split('\n')
+            .map(name => name.trim())
+            .filter(name => name)
+            .join(', ');
+
+        members.textContent =
+          `팀원: ${memberList}`;
+
+      } else {
+
+        members.textContent =
+          '팀원: -';
+
+      }
+
+
+      const description =
+        document.createElement('p');
+
+      description.textContent =
+        work.description || '작품집 소개가 없습니다.';
+
+
+      info.appendChild(year);
+      info.appendChild(leader);
+      info.appendChild(members);
+      info.appendChild(description);
+
+
+      if (work.cover_url) {
+        body.appendChild(cover);
+      }
+
+      body.appendChild(info);
+
+      article.appendChild(top);
+      article.appendChild(preview);
+      article.appendChild(body);
+
+      workList.appendChild(article);
+
+    });
+
+  } catch (error) {
+
+    console.error(
+      `${categoryName} 작품집 불러오기 실패:`,
+      error
+    );
+
+    workList.innerHTML =
+      `<p class="hint">${categoryName} 작품집을 불러오지 못했습니다.</p>`;
+
+  }
+
+}
+
+loadHistoryForSite();
+loadMainDescriptionsForSite();
+
+loadWorksForSite(
+  'play',
+  'playWorkList',
+  '희곡'
+);
+
+loadWorksForSite(
+  'novel',
+  'novelWorkList',
+  '소설'
+);
+
+loadWorksForSite(
+  'poem',
+  'poemWorkList',
+  '시'
+);
+
+</script>

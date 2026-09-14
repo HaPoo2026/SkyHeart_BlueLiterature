@@ -1,0 +1,2434 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>하늘마음 푸른문학 관리자</title>
+
+  <style>
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      background:#f4f8fc;
+      color:#243447;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Noto Sans KR",
+        sans-serif;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:30px 20px;
+    }
+
+    .admin-wrap{
+      width:100%;
+      max-width:520px;
+    }
+
+    .title-area{
+      text-align:center;
+      margin-bottom:28px;
+    }
+
+    .title-area .small{
+      font-size:12px;
+      letter-spacing:.18em;
+      color:#6c91b5;
+      margin-bottom:10px;
+    }
+
+    .title-area h1{
+      margin:0;
+      font-family:"Noto Serif KR", serif;
+      font-size:27px;
+      font-weight:500;
+      color:#244563;
+    }
+
+    .title-area p{
+      margin:10px 0 0;
+      font-size:13px;
+      color:#8292a1;
+    }
+
+    .card{
+      background:#fff;
+      border:1px solid #dce7f0;
+      border-radius:16px;
+      padding:30px;
+      box-shadow:0 12px 35px rgba(47, 79, 105, .08);
+    }
+
+    label{
+      display:block;
+      font-size:13px;
+      color:#54697b;
+      margin-bottom:8px;
+    }
+
+    input[type="email"],
+    input[type="password"]{
+      width:100%;
+      padding:13px 14px;
+      border:1px solid #d6e0e8;
+      border-radius:8px;
+      font-size:14px;
+      outline:none;
+      margin-bottom:18px;
+    }
+
+    input[type="email"]:focus,
+    input[type="password"]:focus{
+      border-color:#7ca7cc;
+    }
+
+    button{
+      width:100%;
+      border:0;
+      border-radius:8px;
+      padding:13px 16px;
+      font-size:14px;
+      cursor:pointer;
+      transition:.2s;
+    }
+
+    .primary-btn{
+      background:#426f98;
+      color:#fff;
+    }
+
+    .primary-btn:hover{
+      background:#355f84;
+    }
+
+    .primary-btn:disabled{
+      opacity:.5;
+      cursor:not-allowed;
+    }
+
+    .logout-btn{
+      background:#edf3f8;
+      color:#557085;
+      margin-top:12px;
+    }
+
+    .logout-btn:hover{
+      background:#e3edf4;
+    }
+
+    .hidden{
+      display:none;
+    }
+
+    .status{
+      margin-top:17px;
+      text-align:center;
+      font-size:13px;
+      line-height:1.6;
+      min-height:20px;
+    }
+
+    .status.error{
+      color:#b94a4a;
+    }
+
+    .status.success{
+      color:#3b7b62;
+    }
+
+    .admin-heading{
+      margin:0 0 5px;
+      font-size:21px;
+      font-weight:600;
+      color:#294b69;
+    }
+
+    .admin-description{
+      margin:0 0 24px;
+      color:#7b8d9c;
+      font-size:13px;
+      line-height:1.7;
+    }
+
+    .poster-box{
+      width:100%;
+      min-height:260px;
+      background:#f2f6f9;
+      border:1px solid #dce6ee;
+      border-radius:10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      margin-bottom:20px;
+    }
+
+    .poster-box img{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    .poster-placeholder{
+      color:#9aabb8;
+      font-size:13px;
+    }
+
+    .file-area{
+      border:1px dashed #aac0d2;
+      border-radius:10px;
+      padding:18px;
+      margin-bottom:15px;
+      background:#fbfdff;
+    }
+
+    input[type="file"]{
+      width:100%;
+      font-size:13px;
+    }
+
+    .help{
+      margin:9px 0 0;
+      font-size:11px;
+      line-height:1.6;
+      color:#9aa8b3;
+    }
+
+    .login-user{
+      font-size:12px;
+      color:#7990a3;
+      margin-bottom:20px;
+      word-break:break-all;
+    }
+
+.history-item{
+  border:1px solid #dce6ee;
+  border-radius:10px;
+  padding:18px;
+  margin-bottom:16px;
+  background:#fbfdff;
+}
+
+.history-item input,
+.history-item textarea{
+  width:100%;
+  padding:11px 12px;
+  border:1px solid #d6e0e8;
+  border-radius:8px;
+  font-size:14px;
+  outline:none;
+  margin-bottom:14px;
+  font-family:inherit;
+}
+
+.history-item textarea{
+  resize:vertical;
+  min-height:90px;
+  line-height:1.6;
+}
+
+.history-item input:focus,
+.history-item textarea:focus{
+  border-color:#7ca7cc;
+}
+
+.delete-history-btn{
+  background:#f4eeee;
+  color:#9b5757;
+}
+
+.work-form{
+  margin-top:18px;
+}
+
+.work-form label{
+  display:block;
+  margin-bottom:7px;
+  font-weight:600;
+  color:#374957;
+}
+
+.work-form input,
+.work-form textarea,
+.work-form select{
+  width:100%;
+  padding:11px 12px;
+  border:1px solid #d6e0e8;
+  border-radius:8px;
+  font-size:14px;
+  outline:none;
+  margin-bottom:14px;
+  font-family:inherit;
+  box-sizing:border-box;
+  background:#ffffff;
+}
+
+.work-form textarea{
+  resize:vertical;
+  min-height:90px;
+  line-height:1.6;
+}
+
+.work-form input:focus,
+.work-form textarea:focus,
+.work-form select:focus{
+  border-color:#7ca7cc;
+}
+
+.file-help{
+  margin-top:-7px;
+  margin-bottom:16px;
+  font-size:13px;
+  color:#7a8a96;
+}
+
+#addWorkButton{
+  margin-top:6px;
+}
+
+/* 작품집 목록 카드 */
+.work-list-item{
+  display:flex;
+  gap:16px;
+  align-items:flex-start;
+  padding:16px;
+  margin-bottom:16px;
+  border:1px solid #dce6ee;
+  border-radius:10px;
+  background:#fbfdff;
+}
+
+.work-list-cover{
+  width:110px;
+  height:150px;
+  object-fit:cover;
+  border-radius:8px;
+  flex-shrink:0;
+  border:1px solid #e0e7ed;
+}
+
+.work-list-info{
+  flex:1;
+  min-width:0;
+}
+
+.work-list-meta{
+  font-size:13px;
+  color:#7a8a96;
+  margin-bottom:6px;
+}
+
+.work-list-info h3{
+  margin:0 0 8px;
+  font-size:18px;
+  color:#2f404d;
+}
+
+.work-list-info p{
+  margin:0;
+  color:#60717d;
+  line-height:1.6;
+}
+
+.work-list-buttons{
+  display:flex;
+  gap:8px;
+  margin-top:14px;
+}
+
+.work-list-buttons button{
+  padding:8px 14px;
+  border:0;
+  border-radius:7px;
+  cursor:pointer;
+  font-family:inherit;
+}
+
+.work-edit-btn{
+  background:#eaf2f8;
+  color:#486c89;
+}
+
+.work-delete-btn{
+  background:#f4eeee;
+  color:#9b5757;
+}
+
+
+@media(max-width:520px){
+  .card{
+    padding:24px 20px;
+  }
+
+  .title-area h1{
+    font-size:23px;
+  }
+
+  .work-list-item{
+    flex-direction:column;
+  }
+
+  .work-list-cover{
+    width:100%;
+    height:auto;
+    max-height:420px;
+    object-fit:contain;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="admin-wrap">
+
+  <div class="title-area">
+    <div class="small">ADMINISTRATION</div>
+    <h1>하늘마음 푸른문학</h1>
+    <p>온라인 문학관 관리자 페이지</p>
+  </div>
+
+
+  <!-- ========================================
+       로그인 화면
+  ========================================= -->
+  <div id="loginCard" class="card">
+
+    <label for="email">관리자 이메일</label>
+    <input
+      type="email"
+      id="email"
+      placeholder="관리자 이메일을 입력하세요"
+    >
+
+    <label for="password">비밀번호</label>
+    <input
+      type="password"
+      id="password"
+      placeholder="비밀번호를 입력하세요"
+    >
+
+    <button
+      id="loginButton"
+      class="primary-btn"
+      type="button"
+    >
+      로그인
+    </button>
+
+    <div id="loginStatus" class="status"></div>
+
+  </div>
+
+
+  <!-- ========================================
+       관리자 화면
+  ========================================= -->
+  <div id="adminCard" class="card hidden">
+
+    <h2 class="admin-heading">포스터 관리</h2>
+
+    <p class="admin-description">
+      새로운 포스터를 등록하면
+      홈페이지의 행사 안내 페이지에도 반영됩니다.
+    </p>
+
+    <div id="loginUser" class="login-user"></div>
+
+    <section class="admin-section">
+
+  <h2>메인 페이지 설명 관리</h2>
+
+  <div class="work-form">
+
+    <label for="mainPlayDescription">
+      희곡 설명
+    </label>
+
+    <textarea
+      id="mainPlayDescription"
+      placeholder="메인 페이지에 표시할 희곡 설명을 입력하세요."
+    ></textarea>
+
+
+    <label for="mainNovelDescription">
+      소설 설명
+    </label>
+
+    <textarea
+      id="mainNovelDescription"
+      placeholder="메인 페이지에 표시할 소설 설명을 입력하세요."
+    ></textarea>
+
+
+    <label for="mainPoemDescription">
+      시 설명
+    </label>
+
+    <textarea
+      id="mainPoemDescription"
+      placeholder="메인 페이지에 표시할 시 설명을 입력하세요."
+    ></textarea>
+
+
+    <button
+      id="saveMainDescriptionButton"
+      class="primary-btn"
+      type="button"
+    >
+      메인 설명 저장하기
+    </button>
+
+    <div
+      id="mainDescriptionStatus"
+      class="status"
+    ></div>
+
+  </div>
+
+</section>
+
+
+    <label>현재 등록된 포스터</label>
+
+    <div id="posterBox" class="poster-box">
+      <span class="poster-placeholder">
+        등록된 포스터가 없습니다.
+      </span>
+    </div>
+
+
+    <label for="posterFile">새 포스터 선택</label>
+
+    <div class="file-area">
+      <input
+        type="file"
+        id="posterFile"
+        accept="image/png,image/jpeg,image/webp"
+      >
+
+      <p class="help">
+        JPG, PNG, WEBP 이미지 파일을 선택해주세요.
+      </p>
+    </div>
+
+
+    <button
+      id="uploadButton"
+      class="primary-btn"
+      type="button"
+    >
+      포스터 변경하기
+    </button>
+
+    <div id="uploadStatus" class="status"></div>
+
+    <hr style="margin:32px 0; border:0; border-top:1px solid #e3ebf1;">
+
+<h2 class="admin-heading">행사 안내 관리</h2>
+
+<p class="admin-description">
+  홈페이지 행사 안내 페이지에 표시되는 내용을 수정할 수 있습니다.
+</p>
+
+<div class="work-form">
+
+  <label for="eventName">행사명</label>
+  <input
+    type="text"
+    id="eventName"
+    placeholder="예: 하늘마음 푸른문학"
+  >
+
+  <label for="eventDate">행사 날짜</label>
+  <input
+    type="text"
+    id="eventDate"
+    placeholder="예: 11월 18일 — 19일"
+  >
+
+  <label for="eventVenue">장소</label>
+  <input
+    type="text"
+    id="eventVenue"
+    placeholder="예: 70주년기념관 초석홀"
+  >
+
+  <label for="eventHost">주최</label>
+  <input
+    type="text"
+    id="eventHost"
+    placeholder="예: 순천대학교 문예창작학과"
+  >
+
+  <label for="program1Title">프로그램 01 제목</label>
+  <input
+    type="text"
+    id="program1Title"
+    placeholder="예: 시 낭독"
+  >
+
+  <label for="program1Description">프로그램 01 설명</label>
+  <textarea
+    id="program1Description"
+    rows="3"
+    placeholder="프로그램 설명을 입력하세요"
+  ></textarea>
+
+  <label for="program2Title">프로그램 02 제목</label>
+  <input
+    type="text"
+    id="program2Title"
+    placeholder="예: 희곡 낭독"
+  >
+
+  <label for="program2Description">프로그램 02 설명</label>
+  <textarea
+    id="program2Description"
+    rows="3"
+    placeholder="프로그램 설명을 입력하세요"
+  ></textarea>
+
+  <label for="program3Title">프로그램 03 제목</label>
+  <input
+    type="text"
+    id="program3Title"
+    placeholder="예: 소설 전시"
+  >
+
+  <label for="program3Description">프로그램 03 설명</label>
+  <textarea
+    id="program3Description"
+    rows="3"
+    placeholder="프로그램 설명을 입력하세요"
+  ></textarea>
+
+  <button
+    id="saveEventButton"
+    type="button"
+    class="primary-btn"
+  >
+    행사 안내 저장하기
+  </button>
+
+  <div id="eventStatus" class="status"></div>
+
+</div>
+
+    <hr style="margin:32px 0; border:0; border-top:1px solid #e3ebf1;">
+
+<h2 class="admin-heading">연혁 관리</h2>
+
+<p class="admin-description">
+  연도, 제목, 설명을 수정할 수 있습니다.
+</p>
+
+<div id="historyEditor">
+
+  <div class="history-item">
+    <label>연도</label>
+    <input type="text" class="history-year" value="2021">
+
+    <label>제목</label>
+    <input type="text" class="history-title" value="하늘마음 푸른문학의 시작">
+
+    <label>설명</label>
+    <textarea class="history-description" rows="4"></textarea>
+
+    <button type="button" class="delete-history-btn">
+      이 연혁 삭제
+    </button>
+  </div>
+
+  <div class="history-item">
+    <label>연도</label>
+    <input type="text" class="history-year" value="2024">
+
+    <label>제목</label>
+    <input type="text" class="history-title" value="찬란했던 계절">
+
+    <label>설명</label>
+    <textarea class="history-description" rows="4"></textarea>
+
+    <button type="button" class="delete-history-btn">
+      이 연혁 삭제
+    </button>
+  </div>
+
+  <div class="history-item">
+    <label>연도</label>
+    <input type="text" class="history-year" value="2025">
+
+    <label>제목</label>
+    <input type="text" class="history-title" value="새로운 하늘마음 푸른문학">
+
+    <label>설명</label>
+    <textarea class="history-description" rows="4"></textarea>
+
+    <button type="button" class="delete-history-btn">
+      이 연혁 삭제
+    </button>
+  </div>
+
+</div>
+
+<button
+  id="addHistoryButton"
+  type="button"
+  class="logout-btn"
+>
+  + 연혁 추가
+</button>
+
+<button
+  id="saveHistoryButton"
+  type="button"
+  class="primary-btn"
+  style="margin-top:12px;"
+>
+  연혁 저장하기
+</button>
+
+<div id="historyStatus" class="status"></div>
+
+<hr style="margin:32px 0; border:0; border-top:1px solid #e3ebf1;">
+
+<h2 class="admin-heading">작품집 관리</h2>
+
+<p class="admin-description">
+  희곡 · 소설 · 시 작품집을 등록할 수 있습니다.
+  등록한 작품집은 출간연도가 최신인 순서대로 홈페이지에 표시됩니다.
+</p>
+
+<div class="work-form">
+
+  <label for="workCategory">분류</label>
+  <select id="workCategory">
+    <option value="play">희곡</option>
+    <option value="novel">소설</option>
+    <option value="poem">시</option>
+  </select>
+
+  <label for="workTitle">작품집 제목</label>
+  <input
+    type="text"
+    id="workTitle"
+    placeholder="작품집 제목을 입력하세요"
+  >
+
+  <label for="workCover">책 표지</label>
+  <input
+    type="file"
+    id="workCover"
+    accept="image/jpeg,image/png,image/webp"
+  >
+
+  <p class="file-help">
+    JPG · PNG · WEBP 이미지를 사용할 수 있습니다.
+  </p>
+
+  <label for="workYear">출간연도</label>
+  <input
+    type="number"
+    id="workYear"
+    min="2000"
+    max="2100"
+    placeholder="예: 2026"
+  >
+
+  <label for="workDescription">소개 문구</label>
+  <textarea
+    id="workDescription"
+    rows="5"
+    placeholder="작품집에 대한 소개를 입력하세요"
+  ></textarea>
+
+  <label for="workTeam">팀 이름</label>
+  <input
+    type="text"
+    id="workTeam"
+    placeholder="팀 이름을 입력하세요"
+  >
+
+  <label for="workLeader">팀장</label>
+  <input
+    type="text"
+    id="workLeader"
+    placeholder="팀장 이름을 입력하세요"
+  >
+
+  <label for="workMembers">팀원</label>
+  <textarea
+    id="workMembers"
+    rows="5"
+    placeholder="팀원 이름을 한 줄에 한 명씩 입력하세요"
+  ></textarea>
+
+  <button
+    id="addWorkButton"
+    type="button"
+    class="primary-btn"
+  >
+    작품집 등록하기
+  </button>
+
+  <div id="workStatus" class="status"></div>
+
+  <hr style="margin:32px 0; border:0; border-top:1px solid #e3ebf1;">
+
+<h2 class="admin-heading">등록된 작품집</h2>
+
+<p class="admin-description">
+  등록한 작품집을 확인하고 수정하거나 삭제할 수 있습니다.
+</p>
+
+<div id="workList">
+  <p class="admin-description">
+    등록된 작품집을 불러오는 중입니다...
+  </p>
+</div>
+
+</div>
+
+    <button
+      id="logoutButton"
+      class="logout-btn"
+      type="button"
+    >
+      로그아웃
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+  /* ==================================================
+     ★★★ 여기 두 곳만 수정하세요 ★★★
+  ================================================== */
+
+  const SUPABASE_URL =
+    'https://tyacgntgskgfkxhreutq.supabase.co';
+
+  const SUPABASE_KEY =
+    'sb_publishable_kJpH296NCVISC3EXDT-TTg_RSnfPoKu';
+
+
+  /* ==================================================
+     아래부터는 수정하지 않아도 됩니다.
+  ================================================== */
+
+  const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+  const loginCard =
+    document.getElementById('loginCard');
+
+  const adminCard =
+    document.getElementById('adminCard');
+
+  const emailInput =
+    document.getElementById('email');
+
+  const passwordInput =
+    document.getElementById('password');
+
+  const loginButton =
+    document.getElementById('loginButton');
+
+    /* 메인 페이지 설명 */
+
+const mainPlayDescription =
+  document.getElementById('mainPlayDescription');
+
+const mainNovelDescription =
+  document.getElementById('mainNovelDescription');
+
+const mainPoemDescription =
+  document.getElementById('mainPoemDescription');
+
+const saveMainDescriptionButton =
+  document.getElementById('saveMainDescriptionButton');
+
+const mainDescriptionStatus =
+  document.getElementById('mainDescriptionStatus');
+
+  const logoutButton =
+    document.getElementById('logoutButton');
+
+  const posterFile =
+    document.getElementById('posterFile');
+
+  const uploadButton =
+    document.getElementById('uploadButton');
+
+  const posterBox =
+    document.getElementById('posterBox');
+
+  const loginStatus =
+    document.getElementById('loginStatus');
+
+  const uploadStatus =
+    document.getElementById('uploadStatus');
+
+  const loginUser =
+    document.getElementById('loginUser');
+
+    const historyEditor =
+  document.getElementById('historyEditor');
+
+const addHistoryButton =
+  document.getElementById('addHistoryButton');
+
+const saveHistoryButton =
+  document.getElementById('saveHistoryButton');
+
+const historyStatus =
+  document.getElementById('historyStatus');
+
+  const eventName =
+  document.getElementById('eventName');
+
+const eventDate =
+  document.getElementById('eventDate');
+
+const eventVenue =
+  document.getElementById('eventVenue');
+
+const eventHost =
+  document.getElementById('eventHost');
+
+const program1Title =
+  document.getElementById('program1Title');
+
+const program1Description =
+  document.getElementById('program1Description');
+
+const program2Title =
+  document.getElementById('program2Title');
+
+const program2Description =
+  document.getElementById('program2Description');
+
+const program3Title =
+  document.getElementById('program3Title');
+
+const program3Description =
+  document.getElementById('program3Description');
+
+const saveEventButton =
+  document.getElementById('saveEventButton');
+
+const eventStatus =
+  document.getElementById('eventStatus');
+
+  const workCategory =
+  document.getElementById('workCategory');
+
+const workTitle =
+  document.getElementById('workTitle');
+
+const workCover =
+  document.getElementById('workCover');
+
+const workYear =
+  document.getElementById('workYear');
+
+const workDescription =
+  document.getElementById('workDescription');
+
+const workTeam =
+  document.getElementById('workTeam');
+
+const workLeader =
+  document.getElementById('workLeader');
+
+const workMembers =
+  document.getElementById('workMembers');
+
+const addWorkButton =
+  document.getElementById('addWorkButton');
+
+const workStatus =
+  document.getElementById('workStatus');
+
+  const workList =
+  document.getElementById('workList');
+
+
+
+  /* =========================================
+     로그인
+  ========================================= */
+
+  loginButton.addEventListener('click', async () => {
+
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+
+    loginStatus.textContent = '';
+    loginStatus.className = 'status';
+
+    if (!email || !password) {
+      loginStatus.textContent =
+        '이메일과 비밀번호를 입력해주세요.';
+      loginStatus.classList.add('error');
+      return;
+    }
+
+    loginButton.disabled = true;
+    loginButton.textContent = '로그인 중...';
+
+    const { data, error } =
+      await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+    loginButton.disabled = false;
+    loginButton.textContent = '로그인';
+
+    if (error) {
+      console.error(error);
+
+      loginStatus.textContent =
+        '로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.';
+
+      loginStatus.classList.add('error');
+      return;
+    }
+
+    showAdmin(data.user);
+
+  });
+
+
+
+  /* Enter 키로 로그인 */
+
+  passwordInput.addEventListener('keydown', (event) => {
+
+    if (event.key === 'Enter') {
+      loginButton.click();
+    }
+
+  });
+
+
+
+  /* =========================================
+     로그아웃
+  ========================================= */
+
+  logoutButton.addEventListener('click', async () => {
+
+    await supabaseClient.auth.signOut();
+
+    adminCard.classList.add('hidden');
+    loginCard.classList.remove('hidden');
+
+    passwordInput.value = '';
+
+    loginStatus.textContent = '로그아웃되었습니다.';
+    loginStatus.className = 'status success';
+
+  });
+
+
+
+  /* =========================================
+     관리자 화면 표시
+  ========================================= */
+
+  async function showAdmin(user) {
+
+    loginCard.classList.add('hidden');
+    adminCard.classList.remove('hidden');
+
+    loginUser.textContent =
+      '로그인 계정: ' + user.email;
+
+    uploadStatus.textContent = '';
+
+await loadCurrentPoster();
+await loadEventInfo();
+await loadMainDescriptions();
+await loadHistory();
+await loadWorks();
+
+ }
+
+ /* =========================================
+   메인 페이지 설명 불러오기
+========================================= */
+
+async function loadMainDescriptions() {
+
+  const { data, error } =
+    await supabaseClient
+      .from('site_content')
+      .select('value')
+      .eq('key', 'main_descriptions')
+      .maybeSingle();
+
+  if (error) {
+
+    console.error(
+      '메인 설명 불러오기 실패:',
+      error
+    );
+
+    return;
+  }
+
+  if (!data || !data.value) {
+    return;
+  }
+
+  try {
+
+    const descriptions =
+      JSON.parse(data.value);
+
+    mainPlayDescription.value =
+      descriptions.play || '';
+
+    mainNovelDescription.value =
+      descriptions.novel || '';
+
+    mainPoemDescription.value =
+      descriptions.poem || '';
+
+  } catch (error) {
+
+    console.error(
+      '메인 설명 데이터 처리 실패:',
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   메인 페이지 설명 저장
+========================================= */
+
+saveMainDescriptionButton.addEventListener(
+  'click',
+  async () => {
+
+    mainDescriptionStatus.textContent = '';
+    mainDescriptionStatus.className = 'status';
+
+    saveMainDescriptionButton.disabled = true;
+    saveMainDescriptionButton.textContent =
+      '저장 중...';
+
+
+    const descriptions = {
+
+      play:
+        mainPlayDescription.value.trim(),
+
+      novel:
+        mainNovelDescription.value.trim(),
+
+      poem:
+        mainPoemDescription.value.trim()
+
+    };
+
+
+    const { error } =
+      await supabaseClient
+        .from('site_content')
+        .upsert(
+          {
+            key: 'main_descriptions',
+            value: JSON.stringify(descriptions)
+          },
+          {
+            onConflict: 'key'
+          }
+        );
+
+
+    if (error) {
+
+      console.error(error);
+
+      mainDescriptionStatus.textContent =
+        '메인 설명 저장에 실패했습니다.';
+
+      mainDescriptionStatus.classList.add('error');
+
+      saveMainDescriptionButton.disabled = false;
+      saveMainDescriptionButton.textContent =
+        '메인 설명 저장하기';
+
+      return;
+    }
+
+
+    mainDescriptionStatus.textContent =
+      '메인 설명이 저장되었습니다!';
+
+    mainDescriptionStatus.classList.add('success');
+
+    saveMainDescriptionButton.disabled = false;
+    saveMainDescriptionButton.textContent =
+      '메인 설명 저장하기';
+
+  }
+);
+
+
+ /* =========================================
+   행사 안내 불러오기
+========================================= */
+
+async function loadEventInfo() {
+
+  const { data, error } =
+    await supabaseClient
+      .from('site_content')
+      .select('value')
+      .eq('key', 'event_info')
+      .maybeSingle();
+
+  if (error) {
+    console.error('행사 안내 불러오기 실패:', error);
+
+    eventStatus.textContent =
+      '행사 안내 정보를 불러오지 못했습니다.';
+
+    eventStatus.className = 'status error';
+    return;
+  }
+
+  // 아직 저장된 행사 정보가 없다면 입력칸을 비워둡니다.
+  if (!data || !data.value) {
+    return;
+  }
+
+  try {
+
+    const eventInfo = JSON.parse(data.value);
+
+    eventName.value =
+      eventInfo.name || '';
+
+    eventDate.value =
+      eventInfo.date || '';
+
+    eventVenue.value =
+      eventInfo.venue || '';
+
+    eventHost.value =
+      eventInfo.host || '';
+
+    program1Title.value =
+      eventInfo.program1Title || '';
+
+    program1Description.value =
+      eventInfo.program1Description || '';
+
+    program2Title.value =
+      eventInfo.program2Title || '';
+
+    program2Description.value =
+      eventInfo.program2Description || '';
+
+    program3Title.value =
+      eventInfo.program3Title || '';
+
+    program3Description.value =
+      eventInfo.program3Description || '';
+
+  } catch (error) {
+
+    console.error(
+      '행사 안내 데이터 변환 실패:',
+      error
+    );
+
+    eventStatus.textContent =
+      '저장된 행사 안내 정보를 읽지 못했습니다.';
+
+    eventStatus.className = 'status error';
+  }
+
+}
+
+
+/* =========================================
+   행사 안내 저장
+========================================= */
+
+saveEventButton.addEventListener('click', async () => {
+
+  eventStatus.textContent = '';
+  eventStatus.className = 'status';
+
+  const eventInfo = {
+    name: eventName.value.trim(),
+    date: eventDate.value.trim(),
+    venue: eventVenue.value.trim(),
+    host: eventHost.value.trim(),
+
+    program1Title:
+      program1Title.value.trim(),
+
+    program1Description:
+      program1Description.value.trim(),
+
+    program2Title:
+      program2Title.value.trim(),
+
+    program2Description:
+      program2Description.value.trim(),
+
+    program3Title:
+      program3Title.value.trim(),
+
+    program3Description:
+      program3Description.value.trim()
+  };
+
+  if (
+    !eventInfo.name ||
+    !eventInfo.date ||
+    !eventInfo.venue ||
+    !eventInfo.host
+  ) {
+
+    eventStatus.textContent =
+      '행사명, 날짜, 장소, 주최를 모두 입력해주세요.';
+
+    eventStatus.className =
+      'status error';
+
+    return;
+  }
+
+  saveEventButton.disabled = true;
+  saveEventButton.textContent = '저장 중...';
+
+  const { error } =
+    await supabaseClient
+      .from('site_content')
+      .upsert(
+        {
+          key: 'event_info',
+          value: JSON.stringify(eventInfo)
+        },
+        {
+          onConflict: 'key'
+        }
+      );
+
+  saveEventButton.disabled = false;
+  saveEventButton.textContent =
+    '행사 안내 저장하기';
+
+  if (error) {
+
+    console.error(
+      '행사 안내 저장 실패:',
+      error
+    );
+
+    eventStatus.textContent =
+      '행사 안내 저장에 실패했습니다.';
+
+    eventStatus.className =
+      'status error';
+
+    return;
+  }
+
+  eventStatus.textContent =
+    '행사 안내가 성공적으로 저장되었습니다!';
+
+  eventStatus.className =
+    'status success';
+
+});
+
+/* =========================================
+   연혁 항목 만들기
+========================================= */
+
+function createHistoryItem(
+  year = '',
+  title = '',
+  description = ''
+) {
+
+  const item = document.createElement('div');
+  item.className = 'history-item';
+
+  const yearLabel = document.createElement('label');
+  yearLabel.textContent = '연도';
+
+  const yearInput = document.createElement('input');
+  yearInput.type = 'text';
+  yearInput.className = 'history-year';
+  yearInput.value = year;
+  yearInput.placeholder = '예: 2026';
+
+  const titleLabel = document.createElement('label');
+  titleLabel.textContent = '제목';
+
+  const titleInput = document.createElement('input');
+  titleInput.type = 'text';
+  titleInput.className = 'history-title';
+  titleInput.value = title;
+  titleInput.placeholder = '연혁 제목을 입력하세요';
+
+  const descriptionLabel = document.createElement('label');
+  descriptionLabel.textContent = '설명';
+
+  const descriptionInput = document.createElement('textarea');
+  descriptionInput.className = 'history-description';
+  descriptionInput.rows = 4;
+  descriptionInput.value = description;
+  descriptionInput.placeholder = '연혁에 대한 설명을 입력하세요';
+
+  const deleteButton = document.createElement('button');
+  deleteButton.type = 'button';
+  deleteButton.className = 'delete-history-btn';
+  deleteButton.textContent = '이 연혁 삭제';
+
+  deleteButton.addEventListener('click', () => {
+
+    const confirmed =
+      confirm('이 연혁을 삭제할까요?');
+
+    if (confirmed) {
+      item.remove();
+    }
+
+  });
+
+  item.appendChild(yearLabel);
+  item.appendChild(yearInput);
+
+  item.appendChild(titleLabel);
+  item.appendChild(titleInput);
+
+  item.appendChild(descriptionLabel);
+  item.appendChild(descriptionInput);
+
+  item.appendChild(deleteButton);
+
+  historyEditor.appendChild(item);
+}
+
+/* =========================================
+   새 연혁 추가
+========================================= */
+
+addHistoryButton.addEventListener('click', () => {
+
+  createHistoryItem();
+
+});
+
+/* =========================================
+   기존 연혁 삭제 버튼 연결
+========================================= */
+
+historyEditor
+  .querySelectorAll('.delete-history-btn')
+  .forEach(button => {
+
+    button.addEventListener('click', () => {
+
+      const confirmed =
+        confirm('이 연혁을 삭제할까요?');
+
+      if (confirmed) {
+        button.closest('.history-item').remove();
+      }
+
+    });
+
+  });
+
+  /* =========================================
+   연혁 저장
+========================================= */
+
+saveHistoryButton.addEventListener('click', async () => {
+
+  historyStatus.textContent = '';
+  historyStatus.className = 'status';
+
+  const items =
+    historyEditor.querySelectorAll('.history-item');
+
+  const histories = [];
+
+  items.forEach(item => {
+
+    const year =
+      item.querySelector('.history-year').value.trim();
+
+    const title =
+      item.querySelector('.history-title').value.trim();
+
+    const description =
+      item.querySelector('.history-description').value.trim();
+
+    histories.push({
+      year,
+      title,
+      description
+    });
+
+  });
+
+
+  /* 빈 연도나 제목이 있는지 확인 */
+
+  const hasEmptyRequiredField =
+    histories.some(history =>
+      !history.year || !history.title
+    );
+
+  if (hasEmptyRequiredField) {
+
+    historyStatus.textContent =
+      '모든 연혁의 연도와 제목을 입력해주세요.';
+
+    historyStatus.className = 'status error';
+    return;
+
+  }
+
+
+  saveHistoryButton.disabled = true;
+  saveHistoryButton.textContent = '저장 중...';
+
+
+  const { error } =
+    await supabaseClient
+      .from('site_content')
+      .upsert(
+        {
+          key: 'history',
+          value: JSON.stringify(histories)
+        },
+        {
+          onConflict: 'key'
+        }
+      );
+
+
+  saveHistoryButton.disabled = false;
+  saveHistoryButton.textContent = '연혁 저장하기';
+
+
+  if (error) {
+
+    console.error('연혁 저장 실패:', error);
+
+    historyStatus.textContent =
+      '연혁 저장에 실패했습니다.';
+
+    historyStatus.className = 'status error';
+    return;
+
+  }
+
+
+  historyStatus.textContent =
+    '연혁이 성공적으로 저장되었습니다!';
+
+  historyStatus.className = 'status success';
+
+});
+
+async function loadWorks() {
+
+  if (!workList) {
+    return;
+  }
+
+  workList.innerHTML = `
+    <p class="admin-description">
+      등록된 작품집을 불러오는 중입니다...
+    </p>
+  `;
+
+  const { data, error } =
+    await supabaseClient
+      .from('works')
+      .select('*')
+      .order('publication_year', { ascending: false })
+      .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('작품집 목록 불러오기 실패:', error);
+
+    workList.innerHTML = `
+      <p class="status error">
+        작품집 목록을 불러오지 못했습니다.
+      </p>
+    `;
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    workList.innerHTML = `
+      <p class="admin-description">
+        아직 등록된 작품집이 없습니다.
+      </p>
+    `;
+    return;
+  }
+
+  workList.innerHTML = '';
+
+  data.forEach(work => {
+
+    const item = document.createElement('div');
+    item.className = 'work-list-item';
+
+    const categoryNames = {
+      play: '희곡',
+      novel: '소설',
+      poem: '시'
+    };
+
+    const cover = document.createElement('img');
+    cover.className = 'work-list-cover';
+    cover.src = work.cover_url || '';
+    cover.alt = `${work.title} 표지`;
+
+    const info = document.createElement('div');
+    info.className = 'work-list-info';
+
+    const meta = document.createElement('div');
+    meta.className = 'work-list-meta';
+    meta.textContent =
+      `${work.publication_year} · ${categoryNames[work.category] || work.category}`;
+
+    const title = document.createElement('h3');
+    title.textContent = work.title;
+
+    const team = document.createElement('p');
+team.textContent =
+  work.team_name
+    ? `팀: ${work.team_name}`
+    : '팀 이름 없음';
+
+const leader = document.createElement('p');
+leader.textContent =
+  work.leader_name
+    ? `팀장: ${work.leader_name}`
+    : '팀장: -';
+
+const members = document.createElement('p');
+
+if (work.member_names) {
+  const memberList = work.member_names
+    .split('\n')
+    .map(name => name.trim())
+    .filter(name => name)
+    .join(', ');
+
+  members.textContent = `팀원: ${memberList}`;
+} else {
+  members.textContent = '팀원: -';
+}
+
+info.appendChild(meta);
+info.appendChild(title);
+info.appendChild(team);
+info.appendChild(leader);
+info.appendChild(members);
+
+const buttonArea = document.createElement('div');
+buttonArea.className = 'work-list-buttons';
+
+const editButton = document.createElement('button');
+editButton.type = 'button';
+editButton.className = 'work-edit-btn';
+editButton.textContent = '수정';
+editButton.addEventListener('click', () => {
+
+  workCategory.value =
+    work.category || 'play';
+
+  workTitle.value =
+    work.title || '';
+
+  workYear.value =
+    work.publication_year || '';
+
+  workDescription.value =
+    work.description || '';
+
+  workTeam.value =
+    work.team_name || '';
+
+  workLeader.value =
+    work.leader_name || '';
+
+  workMembers.value =
+    work.member_names || '';
+
+  // 수정 중인 작품의 ID와 기존 표지 정보를 저장
+  addWorkButton.dataset.editingId =
+    work.id;
+
+  addWorkButton.dataset.oldCoverUrl =
+    work.cover_url || '';
+
+  addWorkButton.dataset.oldCoverPath =
+    work.cover_path || '';
+
+  // 버튼 문구 변경
+  addWorkButton.textContent =
+    '작품집 수정하기';
+
+  // 상태 안내
+  workStatus.textContent =
+    `"${work.title}" 작품집을 수정 중입니다.`;
+
+  workStatus.className =
+    'status success';
+
+  // 등록 폼 쪽으로 이동
+  document
+    .querySelector('.work-form')
+    .scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+
+});
+
+const deleteButton = document.createElement('button');
+deleteButton.type = 'button';
+deleteButton.className = 'work-delete-btn';
+deleteButton.textContent = '삭제';
+
+deleteButton.addEventListener('click', async () => {
+
+  const confirmed =
+    confirm(`"${work.title}" 작품집을 삭제할까요?`);
+
+  if (!confirmed) {
+    return;
+  }
+
+  deleteButton.disabled = true;
+  deleteButton.textContent = '삭제 중...';
+
+  try {
+
+    // -----------------------------------------
+    // 1. covers Storage에서 표지 이미지 삭제
+    // -----------------------------------------
+
+if (work.cover_path) {
+
+  const { error: storageError } =
+    await supabaseClient.storage
+      .from('covers')
+      .remove([work.cover_path]);
+
+  if (storageError) {
+    console.error(
+      '표지 이미지 삭제 실패:',
+      storageError
+    );
+  }
+
+}
+
+    // -----------------------------------------
+    // 2. works 테이블에서 작품 정보 삭제
+    // -----------------------------------------
+
+    const { error: deleteError } =
+      await supabaseClient
+        .from('works')
+        .delete()
+        .eq('id', work.id);
+
+    if (deleteError) {
+      throw deleteError;
+    }
+
+    // -----------------------------------------
+    // 3. 목록 새로 불러오기
+    // -----------------------------------------
+
+    await loadWorks();
+
+  } catch (error) {
+
+    console.error('작품집 삭제 실패:', error);
+
+    alert('작품집 삭제에 실패했습니다.');
+
+    deleteButton.disabled = false;
+    deleteButton.textContent = '삭제';
+
+  }
+
+});
+
+buttonArea.appendChild(editButton);
+buttonArea.appendChild(deleteButton);
+
+info.appendChild(buttonArea);
+
+    item.appendChild(cover);
+    item.appendChild(info);
+
+    workList.appendChild(item);
+
+  });
+
+}
+
+  /* =========================================
+     현재 포스터 불러오기
+  ========================================= */
+
+  async function loadCurrentPoster() {
+
+    const { data, error } =
+      await supabaseClient
+        .from('site_content')
+        .select('value')
+        .eq('key', 'poster_url')
+        .maybeSingle();
+
+    if (error) {
+      console.error(error);
+
+      posterBox.innerHTML =
+        '<span class="poster-placeholder">' +
+        '포스터 정보를 불러오지 못했습니다.' +
+        '</span>';
+
+      return;
+    }
+
+    if (!data || !data.value) {
+
+      posterBox.innerHTML =
+        '<span class="poster-placeholder">' +
+        '등록된 포스터가 없습니다.' +
+        '</span>';
+
+      return;
+    }
+
+    const img = document.createElement('img');
+
+    img.src =
+      data.value +
+      (data.value.includes('?') ? '&' : '?') +
+      't=' +
+      Date.now();
+
+    img.alt = '현재 행사 포스터';
+
+    posterBox.innerHTML = '';
+    posterBox.appendChild(img);
+
+  }
+
+
+
+  /* =========================================
+   연혁 불러오기
+========================================= */
+
+async function loadHistory() {
+
+  const { data, error } =
+    await supabaseClient
+      .from('site_content')
+      .select('value')
+      .eq('key', 'history')
+      .maybeSingle();
+
+  if (error) {
+    console.error('연혁 불러오기 실패:', error);
+
+    historyStatus.textContent =
+      '연혁 정보를 불러오지 못했습니다.';
+
+    historyStatus.className = 'status error';
+    return;
+  }
+
+  /*
+    아직 Supabase에 저장된 연혁이 없다면
+    현재 입력되어 있는 기본 연혁을 그대로 둡니다.
+  */
+  if (!data || !data.value) {
+    return;
+  }
+
+  let histories;
+
+  try {
+    histories = JSON.parse(data.value);
+  } catch (error) {
+    console.error('연혁 데이터 변환 실패:', error);
+    return;
+  }
+
+  historyEditor.innerHTML = '';
+
+  histories.forEach(history => {
+    createHistoryItem(
+      history.year,
+      history.title,
+      history.description
+    );
+  });
+
+}
+
+
+  /* =========================================
+     포스터 업로드
+  ========================================= */
+
+  uploadButton.addEventListener('click', async () => {
+
+    const file = posterFile.files[0];
+
+    uploadStatus.textContent = '';
+    uploadStatus.className = 'status';
+
+    if (!file) {
+
+      uploadStatus.textContent =
+        '먼저 포스터 이미지를 선택해주세요.';
+
+      uploadStatus.classList.add('error');
+      return;
+
+    }
+
+
+    if (!file.type.startsWith('image/')) {
+
+      uploadStatus.textContent =
+        '이미지 파일만 업로드할 수 있습니다.';
+
+      uploadStatus.classList.add('error');
+      return;
+
+    }
+
+
+    const maxSize = 10 * 1024 * 1024;
+
+    if (file.size > maxSize) {
+
+      uploadStatus.textContent =
+        '파일 크기는 10MB 이하로 선택해주세요.';
+
+      uploadStatus.classList.add('error');
+      return;
+
+    }
+
+
+    uploadButton.disabled = true;
+    uploadButton.textContent = '업로드 중...';
+
+    /* 기존 포스터 URL 확인 */
+
+let oldPosterUrl = '';
+
+const { data: oldPosterData } =
+  await supabaseClient
+    .from('site_content')
+    .select('value')
+    .eq('key', 'poster_url')
+    .maybeSingle();
+
+if (oldPosterData && oldPosterData.value) {
+  oldPosterUrl = oldPosterData.value;
+}
+
+
+    /* 파일 확장자 */
+
+    const extension =
+      file.name.split('.').pop().toLowerCase();
+
+
+    /* 매번 새로운 파일 이름 생성 */
+
+    const fileName =
+      'poster-' +
+      Date.now() +
+      '.' +
+      extension;
+
+
+    /* Supabase Storage 업로드 */
+
+    const { error: uploadError } =
+      await supabaseClient.storage
+        .from('posters')
+        .upload(
+          fileName,
+          file,
+          {
+            cacheControl: '3600',
+            contentType: file.type
+          }
+        );
+
+
+    if (uploadError) {
+
+      console.error(uploadError);
+
+      uploadStatus.textContent =
+        '포스터 업로드에 실패했습니다.';
+
+      uploadStatus.classList.add('error');
+
+      uploadButton.disabled = false;
+      uploadButton.textContent = '포스터 변경하기';
+
+      return;
+
+    }
+
+
+    /* 공개 URL 가져오기 */
+
+    const { data: publicData } =
+      supabaseClient.storage
+        .from('posters')
+        .getPublicUrl(fileName);
+
+
+    const posterUrl =
+      publicData.publicUrl;
+
+
+    /* 사이트 데이터베이스에 주소 저장 */
+
+    const { error: databaseError } =
+      await supabaseClient
+        .from('site_content')
+        .upsert(
+          {
+            key: 'poster_url',
+            value: posterUrl
+          },
+          {
+            onConflict: 'key'
+          }
+        );
+
+if (databaseError) {
+
+  console.error(databaseError);
+
+  uploadStatus.textContent =
+    '파일은 업로드되었지만 홈페이지 연결에 실패했습니다.';
+
+  uploadStatus.classList.add('error');
+
+  uploadButton.disabled = false;
+  uploadButton.textContent = '포스터 변경하기';
+
+  return;
+
+}
+
+
+/* =========================================
+   기존 포스터 파일 삭제
+========================================= */
+
+if (oldPosterUrl && oldPosterUrl !== posterUrl) {
+
+  try {
+
+    const marker =
+      '/storage/v1/object/public/posters/';
+
+    if (oldPosterUrl.includes(marker)) {
+
+      const oldPosterPath =
+        decodeURIComponent(
+          oldPosterUrl.split(marker)[1]
+        );
+
+const { error: deleteError } =
+  await supabaseClient.storage
+    .from('posters')
+    .remove([oldPosterPath]);
+
+if (deleteError) {
+  console.error(
+    '기존 포스터 삭제 실패:',
+    deleteError
+  );
+
+} 
+
+      if (deleteError) {
+
+        console.error(
+          '기존 포스터 삭제 실패:',
+          deleteError
+        );
+
+      }
+
+    }
+
+  } catch (error) {
+
+    console.error(
+      '기존 포스터 경로 처리 실패:',
+      error
+    );
+
+  }
+
+}
+
+    uploadStatus.textContent =
+      '포스터가 성공적으로 변경되었습니다!';
+
+    uploadStatus.classList.add('success');
+
+    posterFile.value = '';
+
+    uploadButton.disabled = false;
+    uploadButton.textContent = '포스터 변경하기';
+
+
+    await loadCurrentPoster();
+
+  });
+
+
+  /* =========================================
+     이미 로그인된 상태인지 확인
+  ========================================= */
+
+  async function checkSession() {
+
+    const { data } =
+      await supabaseClient.auth.getSession();
+
+    const session =
+      data.session;
+
+    if (session) {
+
+      showAdmin(session.user);
+
+    }
+
+  }
+
+
+  checkSession();
+
+  // =========================================
+// 작품집 등록
+// =========================================
+
+// =========================================
+// 작품집 등록 / 수정
+// =========================================
+
+addWorkButton.addEventListener('click', async () => {
+
+  workStatus.textContent = '';
+  workStatus.className = 'status';
+
+  const category = workCategory.value;
+  const title = workTitle.value.trim();
+  const coverFile = workCover.files[0];
+  const publicationYear = Number(workYear.value);
+  const description = workDescription.value.trim();
+  const teamName = workTeam.value.trim();
+  const leaderName = workLeader.value.trim();
+  const memberNames = workMembers.value.trim();
+
+  // 수정 중인 작품 ID
+  const editingId =
+    addWorkButton.dataset.editingId || '';
+
+  const isEditing =
+    Boolean(editingId);
+
+  // 기존 표지 정보
+  const oldCoverUrl =
+    addWorkButton.dataset.oldCoverUrl || '';
+
+  const oldCoverPath =
+    addWorkButton.dataset.oldCoverPath || '';
+
+  // 필수 입력값 확인
+  if (!title || !publicationYear) {
+    workStatus.textContent =
+      '작품집 제목과 출간연도를 입력해주세요.';
+    workStatus.className = 'status error';
+    return;
+  }
+
+  // 새 작품 등록일 때는 표지 필수
+  if (!isEditing && !coverFile) {
+    workStatus.textContent =
+      '새 작품집을 등록할 때는 책 표지를 선택해주세요.';
+    workStatus.className = 'status error';
+    return;
+  }
+
+  // 새 표지를 선택했다면 파일 형식 확인
+  if (coverFile) {
+
+    const allowedTypes = [
+      'image/jpeg',
+      'image/png',
+      'image/webp'
+    ];
+
+    if (!allowedTypes.includes(coverFile.type)) {
+      workStatus.textContent =
+        '책 표지는 JPG, PNG, WEBP 이미지만 사용할 수 있습니다.';
+      workStatus.className = 'status error';
+      return;
+    }
+
+  }
+
+  addWorkButton.disabled = true;
+
+  addWorkButton.textContent =
+    isEditing
+      ? '수정 중...'
+      : '등록 중...';
+
+  try {
+
+    let coverUrl = oldCoverUrl;
+    let coverPath = oldCoverPath;
+
+    // =========================================
+    // 새 표지가 선택된 경우 업로드
+    // =========================================
+
+    if (coverFile) {
+
+      const extension =
+        coverFile.name
+          .split('.')
+          .pop()
+          .toLowerCase();
+
+      const newFileName =
+        `cover-${Date.now()}.${extension}`;
+
+      const { error: uploadError } =
+        await supabaseClient.storage
+          .from('covers')
+          .upload(newFileName, coverFile);
+
+      if (uploadError) {
+        throw uploadError;
+      }
+
+      const { data: publicUrlData } =
+        supabaseClient.storage
+          .from('covers')
+          .getPublicUrl(newFileName);
+
+      coverUrl =
+        publicUrlData.publicUrl;
+
+      coverPath =
+        newFileName;
+    }
+
+    // =========================================
+    // 수정 모드
+    // =========================================
+
+    if (isEditing) {
+
+      const { error: updateError } =
+        await supabaseClient
+          .from('works')
+          .update({
+            category: category,
+            title: title,
+            cover_url: coverUrl,
+            cover_path: coverPath,
+            publication_year: publicationYear,
+            description: description,
+            team_name: teamName,
+            leader_name: leaderName,
+            member_names: memberNames
+          })
+          .eq('id', editingId);
+
+      if (updateError) {
+        throw updateError;
+      }
+
+      // 새 표지를 올렸다면 기존 표지 삭제
+      if (
+        coverFile &&
+        oldCoverPath &&
+        oldCoverPath !== coverPath
+      ) {
+
+        const { error: oldCoverDeleteError } =
+          await supabaseClient.storage
+            .from('covers')
+            .remove([oldCoverPath]);
+
+        if (oldCoverDeleteError) {
+          console.error(
+            '기존 표지 삭제 실패:',
+            oldCoverDeleteError
+          );
+        }
+
+      }
+
+      workStatus.textContent =
+        '작품집이 성공적으로 수정되었습니다!';
+      workStatus.className = 'status success';
+
+    }
+
+    // =========================================
+    // 새 작품 등록 모드
+    // =========================================
+
+    else {
+
+      const { error: insertError } =
+        await supabaseClient
+          .from('works')
+          .insert({
+            category: category,
+            title: title,
+            cover_url: coverUrl,
+            cover_path: coverPath,
+            publication_year: publicationYear,
+            description: description,
+            team_name: teamName,
+            leader_name: leaderName,
+            member_names: memberNames
+          });
+
+      if (insertError) {
+        throw insertError;
+      }
+
+      workStatus.textContent =
+        '작품집이 성공적으로 등록되었습니다!';
+      workStatus.className = 'status success';
+
+    }
+
+    // =========================================
+    // 입력폼 초기화
+    // =========================================
+
+    workCategory.value = 'play';
+    workTitle.value = '';
+    workCover.value = '';
+    workYear.value = '';
+    workDescription.value = '';
+    workTeam.value = '';
+    workLeader.value = '';
+    workMembers.value = '';
+
+    // 수정 상태 해제
+    delete addWorkButton.dataset.editingId;
+    delete addWorkButton.dataset.oldCoverUrl;
+    delete addWorkButton.dataset.oldCoverPath;
+
+    addWorkButton.textContent =
+      '작품집 등록하기';
+
+    // 목록 새로고침
+    await loadWorks();
+
+  } catch (error) {
+
+    console.error(
+      isEditing
+        ? '작품집 수정 실패:'
+        : '작품집 등록 실패:',
+      error
+    );
+
+    workStatus.textContent =
+      isEditing
+        ? '작품집 수정에 실패했습니다.'
+        : '작품집 등록에 실패했습니다.';
+
+    workStatus.className =
+      'status error';
+
+  } finally {
+
+    addWorkButton.disabled = false;
+
+    // 오류가 났다면 수정 모드는 유지
+    if (addWorkButton.dataset.editingId) {
+      addWorkButton.textContent =
+        '작품집 수정하기';
+    } else {
+      addWorkButton.textContent =
+        '작품집 등록하기';
+    }
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>
