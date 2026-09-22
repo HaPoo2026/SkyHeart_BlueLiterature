@@ -615,7 +615,7 @@ async function loadMainDescriptionsForSite() {
 }
 
 loadEventPoster();
-async function loadHistoryForSite() {
+
 /* =========================================
    행사 안내 불러오기
 ========================================= */
@@ -635,7 +635,7 @@ async function loadEventInfoForSite() {
   }
 
   // 저장된 행사 정보가 없으면
-  // HTML에 적혀 있는 기본 내용을 그대로 사용합니다.
+  // HTML에 적혀 있는 기본 내용을 그대로 사용
   if (!data || !data.value) {
     return;
   }
@@ -695,7 +695,6 @@ async function loadEventInfoForSite() {
         eventInfo.host || eventHost.textContent;
     }
 
-
     if (program1Title) {
       program1Title.textContent =
         eventInfo.program1Title ||
@@ -708,7 +707,6 @@ async function loadEventInfoForSite() {
         program1Description.textContent;
     }
 
-
     if (program2Title) {
       program2Title.textContent =
         eventInfo.program2Title ||
@@ -720,7 +718,6 @@ async function loadEventInfoForSite() {
         eventInfo.program2Description ||
         program2Description.textContent;
     }
-
 
     if (program3Title) {
       program3Title.textContent =
@@ -744,13 +741,20 @@ async function loadEventInfoForSite() {
   }
 
 }
-loadEventInfoForSite();
 
-  const { data, error } = await supabaseClient
-    .from('site_content')
-    .select('value')
-    .eq('key', 'history')
-    .maybeSingle();
+
+/* =========================================
+   연혁 불러오기
+========================================= */
+
+async function loadHistoryForSite() {
+
+  const { data, error } =
+    await supabaseClient
+      .from('site_content')
+      .select('value')
+      .eq('key', 'history')
+      .maybeSingle();
 
   if (error) {
     console.error('연혁 불러오기 실패:', error);
@@ -764,9 +768,17 @@ loadEventInfoForSite();
   let histories;
 
   try {
-    histories = JSON.parse(data.value);
+
+    histories =
+      JSON.parse(data.value);
+
   } catch (error) {
-    console.error('연혁 데이터 변환 실패:', error);
+
+    console.error(
+      '연혁 데이터 변환 실패:',
+      error
+    );
+
     return;
   }
 
@@ -781,18 +793,36 @@ loadEventInfoForSite();
 
   histories.forEach(history => {
 
-    const item = document.createElement('div');
-    item.className = 'history-item';
+    const item =
+      document.createElement('div');
 
-    const year = document.createElement('div');
-    year.className = 'history-year';
-    year.textContent = history.year;
+    item.className =
+      'history-item';
 
-    const title = document.createElement('h3');
-    title.textContent = history.title;
 
-    const description = document.createElement('p');
-    description.textContent = history.description;
+    const year =
+      document.createElement('div');
+
+    year.className =
+      'history-year';
+
+    year.textContent =
+      history.year;
+
+
+    const title =
+      document.createElement('h3');
+
+    title.textContent =
+      history.title;
+
+
+    const description =
+      document.createElement('p');
+
+    description.textContent =
+      history.description;
+
 
     item.appendChild(year);
     item.appendChild(title);
@@ -824,7 +854,7 @@ async function loadWorksForSite(category, listId, categoryName) {
         .from('works')
         .select('*')
         .eq('category', category)
-        .order('publication_year', { ascending: false })
+        .order('publication_date', { ascending: false })
         .order('created_at', { ascending: false });
 
     if (error) {
@@ -863,8 +893,7 @@ async function loadWorksForSite(category, listId, categoryName) {
         document.createElement('h3');
 
       title.textContent =
-        `${work.publication_year} · ${work.title}`;
-
+        `${work.publication_date?.replaceAll('-', '.') || ''} · ${work.title}`;
 
       const team =
         document.createElement('span');
@@ -918,7 +947,7 @@ async function loadWorksForSite(category, listId, categoryName) {
         document.createElement('p');
 
       year.textContent =
-        `출간연도: ${work.publication_year}`;
+        `출간일: ${work.publication_date?.replaceAll('-', '.') || '-'}`;
 
 
       const leader =
@@ -992,6 +1021,7 @@ async function loadWorksForSite(category, listId, categoryName) {
 
 }
 
+loadEventInfoForSite();
 loadHistoryForSite();
 loadMainDescriptionsForSite();
 

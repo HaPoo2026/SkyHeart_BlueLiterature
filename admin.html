@@ -991,7 +991,7 @@
 
 <p class="admin-description">
   희곡 · 소설 · 시 작품집을 등록할 수 있습니다.
-  등록한 작품집은 출간연도가 최신인 순서대로 홈페이지에 표시됩니다.
+  등록한 작품집은 출간일이 최신인 순서대로 홈페이지에 표시됩니다.
 </p>
 
 <button
@@ -1034,11 +1034,8 @@
 
   <label for="workYear">출간연도</label>
   <input
-    type="number"
-    id="workYear"
-    min="2000"
-    max="2100"
-    placeholder="예: 2026"
+  type="date"
+  id="workYear"
   >
 
   <label for="workDescription">소개 문구</label>
@@ -1977,8 +1974,13 @@ function createWorkManageCard(work) {
   year.className =
     'work-manage-meta';
 
-  year.textContent =
-    `출간연도 · ${work.publication_year}`;
+  const publicationDate =
+  work.publication_date
+    ? work.publication_date.replaceAll('-', '.')
+    : '-';
+
+year.textContent =
+  `출간일 · ${publicationDate}`;
 
 
   const team =
@@ -2048,7 +2050,7 @@ function createWorkManageCard(work) {
       work.title || '';
 
     workYear.value =
-      work.publication_year || '';
+      work.publication_date || '';
 
     workDescription.value =
       work.description || '';
@@ -2341,7 +2343,7 @@ async function loadWorks() {
       .from('works')
       .select('*')
       .order(
-        'publication_year',
+        'publication_date',
         { ascending: false }
       )
       .order(
@@ -2735,12 +2737,8 @@ if (deleteError) {
 
   }
 
-
   checkSession();
 
-  // =========================================
-// 작품집 등록
-// =========================================
 
 // =========================================
 // 작품집 등록 / 수정
@@ -2754,7 +2752,7 @@ addWorkButton.addEventListener('click', async () => {
   const category = workCategory.value;
   const title = workTitle.value.trim();
   const coverFile = workCover.files[0];
-  const publicationYear = Number(workYear.value);
+  const publicationDate = workYear.value;
   const description = workDescription.value.trim();
   const teamName = workTeam.value.trim();
   const leaderName = workLeader.value.trim();
@@ -2774,13 +2772,14 @@ addWorkButton.addEventListener('click', async () => {
   const oldCoverPath =
     addWorkButton.dataset.oldCoverPath || '';
 
+
   // 필수 입력값 확인
-  if (!title || !publicationYear) {
-    workStatus.textContent =
-      '작품집 제목과 출간연도를 입력해주세요.';
-    workStatus.className = 'status error';
-    return;
-  }
+  if (!title || !publicationDate) {
+  workStatus.textContent =
+    '작품집 제목과 출간일을 입력해주세요.';
+  workStatus.className = 'status error';
+  return;
+}
 
   // 새 작품 등록일 때는 표지 필수
   if (!isEditing && !coverFile) {
@@ -2870,7 +2869,7 @@ addWorkButton.addEventListener('click', async () => {
             title: title,
             cover_url: coverUrl,
             cover_path: coverPath,
-            publication_year: publicationYear,
+            publication_date: workYear.value,
             description: description,
             team_name: teamName,
             leader_name: leaderName,
@@ -2923,7 +2922,7 @@ addWorkButton.addEventListener('click', async () => {
             title: title,
             cover_url: coverUrl,
             cover_path: coverPath,
-            publication_year: publicationYear,
+            publication_date: workYear.value,
             description: description,
             team_name: teamName,
             leader_name: leaderName,
