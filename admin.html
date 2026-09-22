@@ -31,7 +31,12 @@
 
     .admin-wrap{
       width:100%;
-      max-width:520px;
+      max-width:900px;
+    }
+
+    #loginCard{
+       max-width:520px;
+      margin:0 auto;
     }
 
     .title-area{
@@ -363,6 +368,38 @@
   color:#9b5757;
 }
 
+/* =========================================
+   관리자 메뉴
+========================================= */
+
+.admin-menu{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:8px;
+  margin:20px 0 32px;
+  padding:6px;
+  background:#f2f6f9;
+  border-radius:12px;
+}
+
+.admin-menu button{
+  padding:11px 8px;
+  background:transparent;
+  color:#667d90;
+  border-radius:8px;
+  font-weight:600;
+}
+
+.admin-menu button:hover{
+  background:#ffffff;
+  color:#426f98;
+}
+
+.admin-menu button.active{
+  background:#ffffff;
+  color:#294b69;
+  box-shadow:0 2px 8px rgba(47,79,105,.10);
+}
 
 @media(max-width:520px){
   .card{
@@ -383,6 +420,201 @@
     max-height:420px;
     object-fit:contain;
   }
+}
+
+/* =========================================
+   관리자 탭 화면
+========================================= */
+
+.admin-panel{
+  display:none;
+}
+
+.admin-panel.active{
+  display:block;
+}
+
+/* =========================================
+   작품집 등록 폼
+========================================= */
+
+.work-form-toggle{
+  margin:18px 0 24px;
+  background:#edf3f8;
+  color:#426f98;
+  font-weight:600;
+  border:1px solid #dce7f0;
+}
+
+.work-form-toggle:hover{
+  background:#e3edf4;
+}
+
+#workFormArea{
+  padding:24px;
+  margin-bottom:28px;
+  background:#fbfdff;
+  border:1px solid #dce7f0;
+  border-radius:12px;
+}
+
+/* =========================================
+   작품집 분류 필터
+========================================= */
+
+.work-filter{
+  display:flex;
+  gap:8px;
+  margin:0 0 22px;
+}
+
+.work-filter-btn{
+  width:auto;
+  min-width:70px;
+  padding:9px 16px;
+  background:#f2f6f9;
+  color:#708596;
+  border:1px solid #dce7f0;
+  font-weight:600;
+}
+
+.work-filter-btn:hover{
+  background:#eaf2f8;
+  color:#426f98;
+}
+
+.work-filter-btn.active{
+  background:#426f98;
+  color:#ffffff;
+  border-color:#426f98;
+}
+
+/* =========================================
+   작품집 관리 목록 - 새 UI
+========================================= */
+
+#workList{
+  margin-top:18px;
+}
+
+/* 전체 보기: 희곡 / 소설 / 시 3열 */
+.work-all-grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:16px;
+  align-items:start;
+}
+
+.work-category-column{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.work-category-title{
+  margin:0 0 4px;
+  padding-bottom:10px;
+  border-bottom:2px solid #dce7f0;
+  color:#345966;
+  font-size:15px;
+  text-align:center;
+}
+
+
+/* 작품 카드 */
+.work-manage-card{
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+
+  background:#fff;
+  border:1px solid #dce7f0;
+  border-radius:12px;
+}
+
+
+/* 표지 */
+.work-manage-cover{
+  width:100%;
+  aspect-ratio:3 / 4;
+  object-fit:cover;
+  background:#f2f6f9;
+}
+
+
+/* 작품 정보 */
+.work-manage-info{
+  display:flex;
+  flex-direction:column;
+  flex:1;
+  padding:16px;
+}
+
+.work-manage-category{
+  margin-bottom:6px;
+
+  color:#527b88;
+  font-size:12px;
+  font-weight:700;
+}
+
+.work-manage-title{
+  margin:0 0 10px;
+
+  color:#294b69;
+  font-size:17px;
+  line-height:1.4;
+}
+
+.work-manage-meta{
+  margin:2px 0;
+  color:#708596;
+  font-size:13px;
+  line-height:1.6;
+}
+
+
+/* 수정 / 삭제 */
+.work-manage-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+
+  margin-top:14px;
+}
+
+.work-manage-buttons button{
+  padding:8px;
+  font-size:12px;
+}
+
+.work-manage-edit{
+  background:#edf3f8;
+  color:#426f98;
+}
+
+.work-manage-delete{
+  background:#fff1f1;
+  color:#a14d4d;
+}
+
+
+/* 개별 장르 보기 */
+.work-single-grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:16px;
+}
+
+
+/* 모바일 */
+@media(max-width:700px){
+
+  .work-all-grid,
+  .work-single-grid{
+    grid-template-columns:1fr;
+  }
+
 }
 </style>
 </head>
@@ -437,8 +669,47 @@
 
     <div id="loginUser" class="login-user"></div>
 
-    <section class="admin-section">
+    <nav class="admin-menu">
 
+  <button
+    type="button"
+    class="admin-menu-btn active"
+    data-panel="adminMainPanel"
+  >
+    메인
+  </button>
+
+  <button
+    type="button"
+    class="admin-menu-btn"
+    data-panel="adminEventPanel"
+  >
+    행사
+  </button>
+
+  <button
+    type="button"
+    class="admin-menu-btn"
+    data-panel="adminHistoryPanel"
+  >
+    연혁
+  </button>
+
+  <button
+    type="button"
+    class="admin-menu-btn"
+    data-panel="adminWorksPanel"
+  >
+    작품집
+  </button>
+
+</nav>
+
+
+    <section
+  id="adminMainPanel"
+  class="admin-panel active"
+>
   <h2>메인 페이지 설명 관리</h2>
 
   <div class="work-form">
@@ -488,7 +759,6 @@
 
   </div>
 
-</section>
 
 <h2 class="admin-heading">포스터 관리</h2>
 
@@ -531,8 +801,13 @@
 
     <div id="uploadStatus" class="status"></div>
 
-    <hr style="margin:32px 0; border:0; border-top:1px solid #e3ebf1;">
+    </section>
 
+
+<section
+  id="adminEventPanel"
+  class="admin-panel"
+>
 <h2 class="admin-heading">행사 안내 관리</h2>
 
 <p class="admin-description">
@@ -623,7 +898,13 @@
 
 </div>
 
-    <hr style="margin:32px 0; border:0; border-top:1px solid #e3ebf1;">
+</section>
+
+
+<section
+  id="adminHistoryPanel"
+  class="admin-panel"
+>
 
 <h2 class="admin-heading">연혁 관리</h2>
 
@@ -699,8 +980,13 @@
 
 <div id="historyStatus" class="status"></div>
 
-<hr style="margin:32px 0; border:0; border-top:1px solid #e3ebf1;">
+</section>
 
+
+<section
+  id="adminWorksPanel"
+  class="admin-panel"
+>
 <h2 class="admin-heading">작품집 관리</h2>
 
 <p class="admin-description">
@@ -708,7 +994,18 @@
   등록한 작품집은 출간연도가 최신인 순서대로 홈페이지에 표시됩니다.
 </p>
 
-<div class="work-form">
+<button
+  id="toggleWorkFormButton"
+  type="button"
+  class="work-form-toggle"
+>
+  + 새 작품집 등록
+</button>
+
+<div
+  id="workFormArea"
+  class="work-form hidden"
+>
 
   <label for="workCategory">분류</label>
   <select id="workCategory">
@@ -780,15 +1077,45 @@
     작품집 등록하기
   </button>
 
-  <div id="workStatus" class="status"></div>
+<div id="workStatus" class="status"></div>
 
-  <hr style="margin:32px 0; border:0; border-top:1px solid #e3ebf1;">
+</div>
 
-<h2 class="admin-heading">등록된 작품집</h2>
+<div class="work-filter">
 
-<p class="admin-description">
-  등록한 작품집을 확인하고 수정하거나 삭제할 수 있습니다.
-</p>
+  <button
+    type="button"
+    class="work-filter-btn active"
+    data-category="all"
+  >
+    전체
+  </button>
+
+  <button
+    type="button"
+    class="work-filter-btn"
+    data-category="play"
+  >
+    희곡
+  </button>
+
+  <button
+    type="button"
+    class="work-filter-btn"
+    data-category="novel"
+  >
+    소설
+  </button>
+
+  <button
+    type="button"
+    class="work-filter-btn"
+    data-category="poem"
+  >
+    시
+  </button>
+
+</div>
 
 <div id="workList">
   <p class="admin-description">
@@ -796,7 +1123,11 @@
   </p>
 </div>
 
+</section>
+
 </div>
+
+</section>
 
     <button
       id="logoutButton"
@@ -1071,6 +1402,7 @@ await loadEventInfo();
 await loadMainDescriptions();
 await loadHistory();
 await loadWorks();
+
 
  }
 
@@ -1568,6 +1900,429 @@ saveHistoryButton.addEventListener('click', async () => {
 
 });
 
+
+let loadedWorks = [];
+let currentWorkFilter = 'all';
+
+function createWorkManageCard(work) {
+
+  const categoryNames = {
+    play: '희곡',
+    novel: '소설',
+    poem: '시'
+  };
+
+
+  const card =
+    document.createElement('div');
+
+  card.className =
+    'work-manage-card';
+
+
+  /* 표지 */
+
+  if (work.cover_url) {
+
+    const cover =
+      document.createElement('img');
+
+    cover.className =
+      'work-manage-cover';
+
+    cover.src =
+      work.cover_url;
+
+    cover.alt =
+      `${work.title} 표지`;
+
+    card.appendChild(cover);
+
+  }
+
+
+  /* 정보 */
+
+  const info =
+    document.createElement('div');
+
+  info.className =
+    'work-manage-info';
+
+
+  const category =
+    document.createElement('div');
+
+  category.className =
+    'work-manage-category';
+
+  category.textContent =
+    categoryNames[work.category] ||
+    work.category;
+
+
+  const title =
+    document.createElement('h3');
+
+  title.className =
+    'work-manage-title';
+
+  title.textContent =
+    work.title;
+
+
+  const year =
+    document.createElement('p');
+
+  year.className =
+    'work-manage-meta';
+
+  year.textContent =
+    `출간연도 · ${work.publication_year}`;
+
+
+  const team =
+    document.createElement('p');
+
+  team.className =
+    'work-manage-meta';
+
+  team.textContent =
+    work.team_name
+      ? `팀 · ${work.team_name}`
+      : '팀 · -';
+
+
+  info.appendChild(category);
+  info.appendChild(title);
+  info.appendChild(year);
+  info.appendChild(team);
+
+
+  /* 버튼 */
+
+  const buttonArea =
+    document.createElement('div');
+
+  buttonArea.className =
+    'work-manage-buttons';
+
+
+  const editButton =
+    document.createElement('button');
+
+  editButton.type = 'button';
+  editButton.className =
+    'work-manage-edit';
+
+  editButton.textContent =
+    '수정';
+
+
+  const deleteButton =
+    document.createElement('button');
+
+  deleteButton.type = 'button';
+  deleteButton.className =
+    'work-manage-delete';
+
+  deleteButton.textContent =
+    '삭제';
+
+
+  buttonArea.appendChild(editButton);
+  buttonArea.appendChild(deleteButton);
+
+  info.appendChild(buttonArea);
+
+  card.appendChild(info);
+
+    /* 수정 */
+
+  editButton.addEventListener('click', () => {
+
+    workCategory.value =
+      work.category || 'play';
+
+    workTitle.value =
+      work.title || '';
+
+    workYear.value =
+      work.publication_year || '';
+
+    workDescription.value =
+      work.description || '';
+
+    workTeam.value =
+      work.team_name || '';
+
+    workLeader.value =
+      work.leader_name || '';
+
+    workMembers.value =
+      work.member_names || '';
+
+
+    addWorkButton.dataset.editingId =
+      work.id;
+
+    addWorkButton.dataset.oldCoverUrl =
+      work.cover_url || '';
+
+    addWorkButton.dataset.oldCoverPath =
+      work.cover_path || '';
+
+
+    addWorkButton.textContent =
+      '작품집 수정하기';
+
+
+    workStatus.textContent =
+      `"${work.title}" 작품집을 수정 중입니다.`;
+
+    workStatus.className =
+      'status success';
+
+
+    /* 닫혀 있는 등록 폼 열기 */
+
+    workFormArea.classList.remove('hidden');
+
+    toggleWorkFormButton.textContent =
+      '− 등록 폼 닫기';
+
+
+    workFormArea.scrollIntoView({
+      behavior:'smooth',
+      block:'start'
+    });
+
+  });
+
+    /* 삭제 */
+
+  deleteButton.addEventListener(
+    'click',
+    async () => {
+
+      const confirmed =
+        confirm(
+          `"${work.title}" 작품집을 삭제할까요?`
+        );
+
+      if (!confirmed) {
+        return;
+      }
+
+
+      deleteButton.disabled = true;
+
+      deleteButton.textContent =
+        '삭제 중...';
+
+
+      try {
+
+        /* 표지 삭제 */
+
+        if (work.cover_path) {
+
+          const { error: storageError } =
+            await supabaseClient.storage
+              .from('covers')
+              .remove([work.cover_path]);
+
+          if (storageError) {
+
+            console.error(
+              '표지 이미지 삭제 실패:',
+              storageError
+            );
+
+          }
+
+        }
+
+
+        /* 작품 데이터 삭제 */
+
+        const { error: deleteError } =
+          await supabaseClient
+            .from('works')
+            .delete()
+            .eq('id', work.id);
+
+
+        if (deleteError) {
+          throw deleteError;
+        }
+
+
+        await loadWorks();
+
+
+      } catch (error) {
+
+        console.error(
+          '작품집 삭제 실패:',
+          error
+        );
+
+        alert(
+          '작품집 삭제에 실패했습니다.'
+        );
+
+        deleteButton.disabled = false;
+
+        deleteButton.textContent =
+          '삭제';
+
+      }
+
+    }
+  );
+
+
+  return card;
+
+}
+
+  function renderWorks() {
+
+  workList.innerHTML = '';
+
+
+  /* =========================================
+     전체 보기
+  ========================================= */
+
+  if (currentWorkFilter === 'all') {
+
+    const grid =
+      document.createElement('div');
+
+    grid.className =
+      'work-all-grid';
+
+
+    const categories = [
+      ['play', '희곡'],
+      ['novel', '소설'],
+      ['poem', '시']
+    ];
+
+
+    categories.forEach(
+      ([categoryKey, categoryName]) => {
+
+        const column =
+          document.createElement('div');
+
+        column.className =
+          'work-category-column';
+
+
+        const heading =
+          document.createElement('h3');
+
+        heading.className =
+          'work-category-title';
+
+        heading.textContent =
+          categoryName;
+
+        column.appendChild(heading);
+
+
+        const works =
+          loadedWorks.filter(
+            work =>
+              work.category === categoryKey
+          );
+
+
+        if (works.length === 0) {
+
+          const empty =
+            document.createElement('p');
+
+          empty.className =
+            'admin-description';
+
+          empty.textContent =
+            '등록된 작품이 없습니다.';
+
+          column.appendChild(empty);
+
+        } else {
+
+          works.forEach(work => {
+
+            column.appendChild(
+              createWorkManageCard(work)
+            );
+
+          });
+
+        }
+
+
+        grid.appendChild(column);
+
+      }
+    );
+
+
+    workList.appendChild(grid);
+
+    return;
+  }
+
+
+  /* =========================================
+     장르별 보기
+  ========================================= */
+
+  const filteredWorks =
+    loadedWorks.filter(
+      work =>
+        work.category ===
+        currentWorkFilter
+    );
+
+
+  if (filteredWorks.length === 0) {
+
+    workList.innerHTML = `
+      <p class="admin-description">
+        등록된 작품집이 없습니다.
+      </p>
+    `;
+
+    return;
+  }
+
+
+  const grid =
+    document.createElement('div');
+
+  grid.className =
+    'work-single-grid';
+
+
+  filteredWorks.forEach(work => {
+
+    grid.appendChild(
+      createWorkManageCard(work)
+    );
+
+  });
+
+
+  workList.appendChild(grid);
+
+}
+
 async function loadWorks() {
 
   if (!workList) {
@@ -1580,238 +2335,54 @@ async function loadWorks() {
     </p>
   `;
 
+
   const { data, error } =
     await supabaseClient
       .from('works')
       .select('*')
-      .order('publication_year', { ascending: false })
-      .order('created_at', { ascending: false });
+      .order(
+        'publication_year',
+        { ascending: false }
+      )
+      .order(
+        'created_at',
+        { ascending: false }
+      );
+
 
   if (error) {
-    console.error('작품집 목록 불러오기 실패:', error);
+
+    console.error(
+      '작품집 목록 불러오기 실패:',
+      error
+    );
 
     workList.innerHTML = `
       <p class="status error">
         작품집 목록을 불러오지 못했습니다.
       </p>
     `;
+
     return;
   }
 
-  if (!data || data.length === 0) {
+
+  loadedWorks = data || [];
+
+
+  if (loadedWorks.length === 0) {
+
     workList.innerHTML = `
       <p class="admin-description">
         아직 등록된 작품집이 없습니다.
       </p>
     `;
+
     return;
   }
 
-  workList.innerHTML = '';
 
-  data.forEach(work => {
-
-    const item = document.createElement('div');
-    item.className = 'work-list-item';
-
-    const categoryNames = {
-      play: '희곡',
-      novel: '소설',
-      poem: '시'
-    };
-
-    const cover = document.createElement('img');
-    cover.className = 'work-list-cover';
-    cover.src = work.cover_url || '';
-    cover.alt = `${work.title} 표지`;
-
-    const info = document.createElement('div');
-    info.className = 'work-list-info';
-
-    const meta = document.createElement('div');
-    meta.className = 'work-list-meta';
-    meta.textContent =
-      `${work.publication_year} · ${categoryNames[work.category] || work.category}`;
-
-    const title = document.createElement('h3');
-    title.textContent = work.title;
-
-    const team = document.createElement('p');
-team.textContent =
-  work.team_name
-    ? `팀: ${work.team_name}`
-    : '팀 이름 없음';
-
-const leader = document.createElement('p');
-leader.textContent =
-  work.leader_name
-    ? `팀장: ${work.leader_name}`
-    : '팀장: -';
-
-const members = document.createElement('p');
-
-if (work.member_names) {
-  const memberList = work.member_names
-    .split('\n')
-    .map(name => name.trim())
-    .filter(name => name)
-    .join(', ');
-
-  members.textContent = `팀원: ${memberList}`;
-} else {
-  members.textContent = '팀원: -';
-}
-
-info.appendChild(meta);
-info.appendChild(title);
-info.appendChild(team);
-info.appendChild(leader);
-info.appendChild(members);
-
-const buttonArea = document.createElement('div');
-buttonArea.className = 'work-list-buttons';
-
-const editButton = document.createElement('button');
-editButton.type = 'button';
-editButton.className = 'work-edit-btn';
-editButton.textContent = '수정';
-editButton.addEventListener('click', () => {
-
-  workCategory.value =
-    work.category || 'play';
-
-  workTitle.value =
-    work.title || '';
-
-  workYear.value =
-    work.publication_year || '';
-
-  workDescription.value =
-    work.description || '';
-
-  workTeam.value =
-    work.team_name || '';
-
-  workLeader.value =
-    work.leader_name || '';
-
-  workMembers.value =
-    work.member_names || '';
-
-  // 수정 중인 작품의 ID와 기존 표지 정보를 저장
-  addWorkButton.dataset.editingId =
-    work.id;
-
-  addWorkButton.dataset.oldCoverUrl =
-    work.cover_url || '';
-
-  addWorkButton.dataset.oldCoverPath =
-    work.cover_path || '';
-
-  // 버튼 문구 변경
-  addWorkButton.textContent =
-    '작품집 수정하기';
-
-  // 상태 안내
-  workStatus.textContent =
-    `"${work.title}" 작품집을 수정 중입니다.`;
-
-  workStatus.className =
-    'status success';
-
-  // 등록 폼 쪽으로 이동
-  document
-    .querySelector('.work-form')
-    .scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
-
-});
-
-const deleteButton = document.createElement('button');
-deleteButton.type = 'button';
-deleteButton.className = 'work-delete-btn';
-deleteButton.textContent = '삭제';
-
-deleteButton.addEventListener('click', async () => {
-
-  const confirmed =
-    confirm(`"${work.title}" 작품집을 삭제할까요?`);
-
-  if (!confirmed) {
-    return;
-  }
-
-  deleteButton.disabled = true;
-  deleteButton.textContent = '삭제 중...';
-
-  try {
-
-    // -----------------------------------------
-    // 1. covers Storage에서 표지 이미지 삭제
-    // -----------------------------------------
-
-if (work.cover_path) {
-
-  const { error: storageError } =
-    await supabaseClient.storage
-      .from('covers')
-      .remove([work.cover_path]);
-
-  if (storageError) {
-    console.error(
-      '표지 이미지 삭제 실패:',
-      storageError
-    );
-  }
-
-}
-
-    // -----------------------------------------
-    // 2. works 테이블에서 작품 정보 삭제
-    // -----------------------------------------
-
-    const { error: deleteError } =
-      await supabaseClient
-        .from('works')
-        .delete()
-        .eq('id', work.id);
-
-    if (deleteError) {
-      throw deleteError;
-    }
-
-    // -----------------------------------------
-    // 3. 목록 새로 불러오기
-    // -----------------------------------------
-
-    await loadWorks();
-
-  } catch (error) {
-
-    console.error('작품집 삭제 실패:', error);
-
-    alert('작품집 삭제에 실패했습니다.');
-
-    deleteButton.disabled = false;
-    deleteButton.textContent = '삭제';
-
-  }
-
-});
-
-buttonArea.appendChild(editButton);
-buttonArea.appendChild(deleteButton);
-
-info.appendChild(buttonArea);
-
-    item.appendChild(cover);
-    item.appendChild(info);
-
-    workList.appendChild(item);
-
-  });
+  renderWorks();
 
 }
 
@@ -2424,6 +2995,120 @@ addWorkButton.addEventListener('click', async () => {
     }
 
   }
+
+});
+
+/* =========================================
+   관리자 메뉴 탭 전환
+========================================= */
+
+const adminMenuButtons =
+  document.querySelectorAll('.admin-menu-btn');
+
+const adminPanels =
+  document.querySelectorAll('.admin-panel');
+
+
+adminMenuButtons.forEach(button => {
+
+  button.addEventListener('click', () => {
+
+    const targetPanelId =
+      button.dataset.panel;
+
+
+    // 모든 메뉴 버튼 선택 해제
+    adminMenuButtons.forEach(btn => {
+      btn.classList.remove('active');
+    });
+
+
+    // 모든 관리 화면 숨기기
+    adminPanels.forEach(panel => {
+      panel.classList.remove('active');
+    });
+
+
+    // 누른 메뉴 버튼 활성화
+    button.classList.add('active');
+
+
+    // 해당 관리 화면 표시
+    const targetPanel =
+      document.getElementById(targetPanelId);
+
+    if (targetPanel) {
+      targetPanel.classList.add('active');
+    }
+
+  });
+
+});
+
+/* =========================================
+   작품집 등록 폼 열기 / 닫기
+========================================= */
+
+const toggleWorkFormButton =
+  document.getElementById('toggleWorkFormButton');
+
+const workFormArea =
+  document.getElementById('workFormArea');
+
+
+toggleWorkFormButton.addEventListener('click', () => {
+
+  const isHidden =
+    workFormArea.classList.contains('hidden');
+
+  if (isHidden) {
+
+    workFormArea.classList.remove('hidden');
+
+    toggleWorkFormButton.textContent =
+      '− 등록 폼 닫기';
+
+  } else {
+
+    workFormArea.classList.add('hidden');
+
+    toggleWorkFormButton.textContent =
+      '+ 새 작품집 등록';
+
+  }
+
+});
+
+/* =========================================
+   작품집 분류 필터
+========================================= */
+
+const workFilterButtons =
+  document.querySelectorAll('.work-filter-btn');
+
+workFilterButtons.forEach(button => {
+
+  button.addEventListener('click', () => {
+
+    // 클릭한 버튼의 카테고리 저장
+    currentWorkFilter =
+      button.dataset.category;
+
+
+    // 모든 필터 버튼의 active 제거
+    workFilterButtons.forEach(btn => {
+      btn.classList.remove('active');
+    });
+
+
+    // 클릭한 버튼만 active
+    button.classList.add('active');
+
+
+    // 작품 목록 다시 그리기
+    renderWorks();
+
+  });
 
 });
 
